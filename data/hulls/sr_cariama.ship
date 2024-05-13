@@ -38,7 +38,7 @@
       "mount": "TURRET",
       "arc": 180,
       "angle": 0,
-      "locations": [-43.5, 23]
+      "locations": [-28.5, 23]
     },
     {
       "id": "WS0002",
@@ -47,7 +47,7 @@
       "mount": "TURRET",
       "arc": 180,
       "angle": 0,
-      "locations": [-43.5, -23]
+      "locations": [-28.5, -23]
     },
     {
       "id": "WS0003",
@@ -163,17 +163,17 @@
   ],
   "engineSlots": [
     {
-      "location": [-43.5, 23],
-      "length": 45,
-      "width": 15,
+      "location": [-28.5, 23],
+      "length": 60,
+      "width": 18,
       "angle": 180,
       "contrailSize": 30,
       "style": "SR_AENOCYON_VENOM"
     },
     {
-      "location": [-43.5, -23],
-      "length": 45,
-      "width": 15,
+      "location": [-28.5, -23],
+      "length": 60,
+      "width": 18,
       "angle": -180,
       "contrailSize": 30,
       "style": "SR_AENOCYON_VENOM"
