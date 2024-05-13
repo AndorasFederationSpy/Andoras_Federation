@@ -18,12 +18,12 @@
     "high_scatter_amp"
   ],
   "builtInWeapons": {
-    "WS0001": "mininglaser",
-    "WS0002": "mininglaser",
-    "WS0003": "mininglaser",
-    "WS0004": "mininglaser",
+    "WS0001": "sr_miningbeam",
+    "WS0002": "sr_miningbeam",
+    "WS0003": "sr_boombeam",
+    "WS0004": "sr_boombeam",
     "WS0005": "sr_fightermg",
-    "WS0006": "mininglaser",
+    "WS0006": "sr_weldingbeam",
     "WS0007": "sr_miningdrone_lights"
   },
   "weaponSlots": [
@@ -79,7 +79,7 @@
       "mount": "TURRET",
       "arc": 270,
       "angle": 0,
-      "locations": [17.5, -0]
+      "locations": [18, -0]
     },
     {
       "id": "WS0007",
