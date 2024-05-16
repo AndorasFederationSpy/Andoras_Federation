@@ -164,18 +164,18 @@
   "engineSlots": [
     {
       "location": [-28.5, 23],
-      "length": 60,
-      "width": 18,
+      "length": 0,
+      "width": 0,
       "angle": 180,
-      "contrailSize": 30,
+      "contrailSize": 0,
       "style": "SR_AENOCYON_VENOM"
     },
     {
       "location": [-28.5, -23],
-      "length": 60,
-      "width": 18,
+      "length": 0,
+      "width": 0,
       "angle": -180,
-      "contrailSize": 30,
+      "contrailSize": 0,
       "style": "SR_AENOCYON_VENOM"
     }
   ],
