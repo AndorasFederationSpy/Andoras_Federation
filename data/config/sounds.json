@@ -9,6 +9,11 @@
 		{"file":"sounds/weapon/sr_falcata_fire1.ogg","pitch":0.9,"volume":0.15},
 		{"file":"sounds/weapon/sr_falcata_fire2.ogg","pitch":0.9,"volume":0.2}
 	],
+        "sr_ensis_fire":
+	[
+		{"file":"sounds/weapon/sr_ensis_fire1.ogg","pitch":1.0,"volume":0.15},
+		{"file":"sounds/weapon/sr_ensis_fire2.ogg","pitch":1.0,"volume":0.15}
+	],
         "sr_shotgun_fire":
         [
                 {"file":"sounds/weapon/sr_shotgun_fire.ogg","pitch":0.9,"volume":0.9},
@@ -18,7 +23,7 @@
         [
                 {"file":"sounds/weapon/sr_carbine_fire.ogg","pitch":0.9,"volume":0.15},
                 {"file":"sounds/weapon/sr_carbine_fire.ogg","pitch":0.1,"volume":0.15},
-                {"file":"sounds/weapon/sr_carbine_fire.ogg","pitch":0.8,"volume":0.15}
+                {"file":"sounds/weapon/sr_carbine_fire.ogg","pitch":0.95,"volume":0.15}
         ],
         "sr_sexbarrel_fire":
         [
@@ -33,9 +38,9 @@
         ],
         "sr_wavebreaker_fire":
         [
-                {"file":"sounds/weapon/sr_wavebreaker_fire.ogg","pitch":1,"volume":1.0},
-                {"file":"sounds/weapon/sr_wavebreaker_fire.ogg","pitch":1,"volume":0.9},
-                {"file":"sounds/weapon/sr_wavebreaker_fire.ogg","pitch":1,"volume":0.8}
+                {"file":"sounds/weapon/sr_wavebreaker_fire1.ogg","pitch":1,"volume":1.0},
+                {"file":"sounds/weapon/sr_wavebreaker_fire2.ogg","pitch":1,"volume":1.0},
+                {"file":"sounds/weapon/sr_wavebreaker_fire3.ogg","pitch":1,"volume":1.0}
         ],
 	"sr_fiftyfour_fire":
 	[
