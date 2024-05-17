@@ -1,0 +1,31 @@
+{
+    "center": [
+        2,
+        2
+    ],
+    "collisionRadius": 0,
+    "coversColor": "",
+    "height": 4,
+    "hullId": "sr_engine_drone",
+    "hullName": "Engine Drone",
+    "hullSize": "FIGHTER",
+    "shieldCenter": [
+        0,
+        0
+    ],
+    "shieldRadius": 2,
+    "spriteName": "graphics/ships/fighters/sr_engine_drone.png",
+    "style": "HOUSE_BELLONA",
+    "viewOffset": 0,
+    "weaponSlots": [],
+    "engineSlots": [{
+      "location": [0, 0],
+      "length": 60,
+      "width": 20,
+      "angle": 180,
+      "contrailSize": 8,
+      "style": "HOUSE_BELLONA"
+    }],
+
+    "width": 4
+}
