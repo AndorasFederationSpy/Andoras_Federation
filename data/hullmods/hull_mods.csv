@@ -17,4 +17,6 @@ Prototype Bilateral Hangar,sr_vast_hangar,,,,,,,,TRUE,,0,0,0,0,com.fs.starfarer.
 
 Prototype Hangar design allowing fighters to land on either side of the carrier. This design lets fighters and bombers land, rearm and repair and then exit through the opposite side of the carrier, this means they do not have to be repositioned before they redeploy like smaller standard hangars with one entrance/exit. 
 
-Supposedly this shortens time between fighter deployments but currently this is unproven. Ship has exetremely limited cargo space as a result. ",[REDACTED BY FEDERATION COMSEC],,graphics/hullmods/vast_hangar.png
+Supposedly this shortens time between fighter deployments but currently this is unproven. Ship has exetremely limited cargo space as a result. ",[REDACTED BY FEDERATION COMSEC],,graphics/hullmods/sr_longhangar.png
+,,,,,,,,,,,,,,,,,,,
+Small Phase Coils,Sr_ExperimentalPhaseCoils,,,,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.Sr_ExperimentalPhaseCoils,This fighters phase coils are not large enough to phase dive repeatedly in quick succession.,[REDACTED BY FEDERATION COMSEC],S Modding this kills you irl.,graphics/hullmods/phase_coils_experimental.png
