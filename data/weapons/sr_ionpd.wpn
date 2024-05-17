@@ -1,0 +1,56 @@
+{
+  "id": "sr_ionpd",
+  "specClass": "beam",
+  "type": "ENERGY",
+  "size": "SMALL",
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "turretSprite": "graphics/weapons/sr_kitari_archangel.png",
+  "turretGlowSprite": "graphics/weapons/sr_kitari_archangel_glow.png",
+  "hardpointSprite": "graphics/weapons/sr_kitari_archangel.png",
+  "hardpointGlowSprite": "graphics/weapons/sr_kitari_archangel_glow.png",
+  "glowColor": [
+    0,
+    255,
+    145,
+    115
+  ],
+  "hitGlowRadius": 0,
+  "turretOffsets": [
+    18,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    28.5,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "fringeColor": [
+    0,
+    255,
+    145,
+    255
+  ],
+  "coreColor": [
+    255,
+    255,
+    255,
+    255
+  ],
+  "width": 12,
+  "textureType": SMOOTH,
+  "textureScrollSpeed": 64,
+  "pixelsPerTexel": 5,
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER
+  ],
+  "fireSoundOne": "laser_intro",
+  "fireSoundTwo": "pd_laser_loop"
+}

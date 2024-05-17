@@ -1,0 +1,61 @@
+{
+  "id": "sr_hdic",
+  "specClass": "projectile",
+  "projectileSpecId": "sr_hdic_shot",
+  "type": "ENERGY",
+  "size": "LARGE",
+  "turretSprite": "graphics/weapons/sr_hdic.png",
+  "turretGlowSprite": "graphics/weapons/sr_hdic_glow.png",
+  "hardpointSprite": "graphics/weapons/sr_hdic.png",
+  "hardpointGlowSprite": "graphics/weapons/sr_hdic_glow.png",
+  "glowColor": [
+    100,
+    100,
+    255,
+    255
+  ],
+  "turretOffsets": [
+    11,
+    0,
+    18.5,
+    8.5,
+    18.5,
+    -8.5
+  ],
+  "turretAngleOffsets": [
+    0,
+    0,
+    0
+  ],
+  "hardpointOffsets": [
+    23.5,
+    0,
+    31,
+    -8.5,
+    31,
+    8.5
+  ],
+  "hardpointAngleOffsets": [
+    0,
+    0,
+    0
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "GLOW_AND_FLASH",
+  "autocharge": true,
+  "muzzleFlashSpec": {
+    "length": 30,
+    "spread": 8,
+    "particleSizeMin": 15,
+    "particleSizeRange": 25,
+    "particleDuration": 0.23,
+    "particleCount": 15,
+    "particleColor": [
+      100,
+      100,
+      255,
+      255
+    ]
+  },
+  "fireSoundTwo": "sr_ioncannon_fire"
+}

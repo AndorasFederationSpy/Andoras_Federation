@@ -1,0 +1,61 @@
+{
+  "id": "sr_falcataarray",
+  "specClass": "projectile",
+  "projectileSpecId": "sr_falcata_shot",
+  "type": "ENERGY",
+  "size": "LARGE",
+  "turretSprite": "",
+  "hardpointSprite": "",
+  "turretOffsets": [
+    12,
+    -2.5,
+    12,
+    2.5,
+    8,
+    -6.5,
+    8,
+    6.5,
+    4,
+    -9.5,
+    4,
+    9.5,
+    0,
+    -13.5,
+    0,
+    13.5
+  ],
+  "turretAngleOffsets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "hardpointOffsets": [
+    0,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "MUZZLE_FLASH",
+  "muzzleFlashSpec": {
+    "length": 7,
+    "spread": 5,
+    "particleSizeMin": 5,
+    "particleSizeRange": 10,
+    "particleDuration": 0.17,
+    "particleCount": 8,
+    "particleColor": [
+      100,
+      255,
+      245,
+      185
+    ]
+  },
+  "fireSoundTwo": "sr_falcata_fire"
+}
