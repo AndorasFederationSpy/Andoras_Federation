@@ -6,16 +6,16 @@ import com.fs.starfarer.api.campaign.CampaignPlugin;
 import com.fs.starfarer.api.combat.ShipAIPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import data.scripts.ai.RepairDrone_AI;
+import data.scripts.ai.RepairDroneAI;
 
 public class SolarRepublicPlugin extends BaseModPlugin {
-
     @Override
     public PluginPick<ShipAIPlugin> pickShipAI(FleetMemberAPI member, ShipAPI ship) {
-        if (ship.getHullSpec().getHullId().equals("sr_repairdrone")) {
-            return new PluginPick(new RepairDrone_AI(ship), CampaignPlugin.PickPriority.MOD_GENERAL);
+         switch (ship.getHullSpec().getHullId()){
+            case "sr_repairdrone":
+                return new PluginPick<ShipAIPlugin>(new RepairDroneAI(ship), CampaignPlugin.PickPriority.HIGHEST);
+            default:
+                return super.pickShipAI(member, ship);
         }
-
-        return super.pickShipAI(member, ship);
     }
 }

@@ -7,22 +7,22 @@
 	"description":"Solar Republic Mod",
     "gameVersion":"0.97",
   	"jars":["jars/SolarRepublic.jar"],
-    "plugin": ["data.scripts.SolarRepublicPlugin"],
-	  	"dependencies": [
-        {
-            "id": "lw_lazylib",
-            "name": "LazyLib",
-            #"version": "2.7b"
-        },
-        {
-            "id": "MagicLib",
-            "name": "MagicLib",
-            #"version": "0.34"
-        },
-        {
-            "id": "shaderLib",
-            "name": "GraphicsLib",
-            #"version": "1.5.1"
-        }
-    ],
+    "modPlugin": "data.scripts.SolarRepublicPlugin",
+	"dependencies": [
+		{
+			"id": "lw_lazylib",
+			"name": "LazyLib",
+			#"version": "2.7b"
+		},
+		{
+			"id": "MagicLib",
+			"name": "MagicLib",
+			#"version": "0.34"
+		},
+		{
+			"id": "shaderLib",
+			"name": "GraphicsLib",
+			#"version": "1.5.1"
+		}
+	]
 }

@@ -22,7 +22,7 @@ import java.util.Random;
 
 //based on code from Sundog's ICE repair drone and Dark.Revenant's Imperium Titan
 
-public class RepairDrone_AI extends BaseShipAI {
+public class RepairDroneAI extends BaseShipAI {
     private static final float REPAIR_RANGE = 55f;
     private static final float REPAIR_HULL = 8f;
     private static final float REPAIR_ARMOR = 0.35f;
@@ -57,13 +57,13 @@ public class RepairDrone_AI extends BaseShipAI {
     private final IntervalUtil interval = new IntervalUtil(0.23f, 0.37f);
     private final IntervalUtil countdown = new IntervalUtil(4f, 4f);
 
-    public RepairDrone_AI(ShipAPI ship) {
+    public RepairDroneAI(ShipAPI ship) {
         super(ship);
     }
 
     @Override
     public void advance(float amount) {
-
+        Global.getLogger(RepairDroneAI.class).warn(String.format("advance called"));
         if (carrier == null) {
             init();
             //if(carrier == null){
@@ -93,7 +93,6 @@ public class RepairDrone_AI extends BaseShipAI {
 
         }
         goToDestination();
-
     }
 
     @Override
