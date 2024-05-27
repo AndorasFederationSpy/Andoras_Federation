@@ -5,43 +5,54 @@ import com.fs.starfarer.api.combat.*;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.List;
-import java.util.Map;
 
 public class Sr_EngineRotationPlugin implements EveryFrameWeaponEffectPlugin {
     FakeEngineAPI fakeEngine = null;
     @Override
-    public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
-        ShipAPI ship = weapon.getShip();
+    public void advance(float amount, CombatEngineAPI engine, WeaponAPI rotatingEngineDecorative) {
+        ShipAPI ship = rotatingEngineDecorative.getShip();
         if(fakeEngine == null) {
-            this.fakeEngine = createFakeEngine(ship, engine);
+            this.fakeEngine = createFakeEngine(engine, rotatingEngineDecorative);
         }
 
         float angularVelocity = ship.getAngularVelocity() / ship.getMaxTurnRate();
-        float angleDegrees = ship.getFacing() + angularVelocity * 35f;
+        float rotationDegrees = ship.getFacing() - angularVelocity * 35f;
 
-        weapon.setCurrAngle(angleDegrees);
-        float halfWeaponHeight = weapon.getSprite().getHeight() * 0.4f;
-        float dx = - halfWeaponHeight * ((float)Math.cos(Math.PI * angleDegrees / 180.0));
-        float dy = - halfWeaponHeight * ((float)Math.sin(Math.PI * angleDegrees / 180.0));
+        float normalisedEngineLevel = ship.getVelocity().length() / ship.getMaxSpeed();
 
-        Vector2f nozzleLocation = new Vector2f(weapon.getLocation().x + dx, weapon.getLocation().y + dy);
+        if(normalisedEngineLevel < 0.4f) {
+            normalisedEngineLevel = 0.4f;
+        } else if (1f < normalisedEngineLevel){
+            normalisedEngineLevel = 1f;
+        }
 
-        float levelCopy = ship.getVelocity().length() / ship.getMaxSpeed();
+        fakeEngine.setAbsoluteValues(rotationDegrees, normalisedEngineLevel, ship.isAlive());
+        fakeEngine.setPhased(ship.isPhased());
+    }
 
-        fakeEngine.setAbsoluteValues(nozzleLocation, angleDegrees, levelCopy);
+    private FakeEngineAPI createFakeEngine(CombatEngineAPI engine, WeaponAPI rotatingEngineDecorative) {
+        return new FakeEngineAPI(engine, Global.getSettings(), rotatingEngineDecorative);
     }
 
     // Movable ship engine for implementing rotation and other fancy tricks
     static class FakeEngineAPI {
         private final ShipAPI engineDrone;
+
+        private float engineLevel = 1f;
+        private final WeaponAPI rotatingEngineDecorative;
         private final EngineSlotAPI engineSlot;
 
-        public FakeEngineAPI(ShipAPI owner, CombatEngineAPI engine, SettingsAPI settingsAPI) {
+        private final float nozzleOffset;
+
+        public FakeEngineAPI(CombatEngineAPI engine, SettingsAPI settingsAPI, WeaponAPI rotatingEngineDecorative) {
             ShipVariantAPI engineDroneVariant = Global.getSettings().createEmptyVariant("sr_engine_drone", settingsAPI.getHullSpec("sr_engine_drone"));
             this.engineDrone = engine.createFXDrone(engineDroneVariant);
+            this.rotatingEngineDecorative = rotatingEngineDecorative;
+            this.nozzleOffset = rotatingEngineDecorative.getSprite().getHeight() * 0.4f;
+
             engineDrone.setLayer(CombatEngineLayers.FIGHTERS_LAYER);
             engineDrone.setCollisionClass(CollisionClass.NONE);
-            engineDrone.setOwner(owner.getOwner());
+            engineDrone.setOwner(rotatingEngineDecorative.getShip().getOwner());
             List<ShipEngineControllerAPI.ShipEngineAPI> engineSlots = engineDrone.getEngineController().getShipEngines();
             if(engineSlots.isEmpty()) {
                 throw new RuntimeException("Engine Drone suppose to have an engine");
@@ -52,14 +63,35 @@ public class Sr_EngineRotationPlugin implements EveryFrameWeaponEffectPlugin {
             engine.addEntity(engineDrone);
         }
 
-        public void setAbsoluteValues(Vector2f position, float rotationDegrees, float normalisedEngineLevel){
-            engineDrone.getLocation().set(position);
-            engineDrone.setFacing(rotationDegrees);
-            engineDrone.getEngineController().setFlameLevel(engineSlot, normalisedEngineLevel);
+        public void setPhased(boolean isPhased) {
+            engineDrone.setPhased(isPhased);
         }
-    }
 
-    private FakeEngineAPI createFakeEngine(ShipAPI ship, CombatEngineAPI engine) {
-        return new FakeEngineAPI(ship, engine, Global.getSettings());
+        public void setAbsoluteValues(float rotationDegrees, float normalisedEngineLevel, boolean engineActive){
+            if(!engineActive) {
+                List<ShipEngineControllerAPI.ShipEngineAPI> engineSlots = engineDrone.getEngineController().getShipEngines();
+                engineSlots.get(0).disable();
+                return;
+            }
+
+            rotatingEngineDecorative.setCurrAngle(rotationDegrees);
+
+            engineDrone.getLocation().set(getNozzleLocation(rotatingEngineDecorative.getLocation(), nozzleOffset, rotationDegrees));
+            engineDrone.setFacing(rotationDegrees);
+
+            setEngineLevel(engineDrone, engineSlot, normalisedEngineLevel);
+        }
+
+        private Vector2f getNozzleLocation(Vector2f rotatingEngineLocation, float nozzleOffset, float rotationDegrees) {
+            float dx = - nozzleOffset * ((float)Math.cos(Math.PI * rotationDegrees / 180.0));
+            float dy = - nozzleOffset * ((float)Math.sin(Math.PI * rotationDegrees / 180.0));
+
+            return new Vector2f(rotatingEngineLocation.x + dx, rotatingEngineLocation.y + dy);
+        }
+
+        private void setEngineLevel(ShipAPI engineDrone, EngineSlotAPI engineSlot, float targetEngineLevel) {
+            engineLevel = (9f * engineLevel + targetEngineLevel) / 10f;
+            engineDrone.getEngineController().setFlameLevel(engineSlot, engineLevel);
+        }
     }
 }
