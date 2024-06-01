@@ -1,5 +1,5 @@
 {
-	"id":"sr_boreon_device",
+	"id":"sr_borion_device",
 	"type":"STAT_MOD",
 	#"aiType":"NONE",
 	"aiType":"BURN_DRIVE",
