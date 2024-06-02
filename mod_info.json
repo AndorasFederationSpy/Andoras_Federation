@@ -6,8 +6,8 @@
 	"version":"1.0.0",
 	"description":"Solar Republic Mod",
     "gameVersion":"0.97",
-  	"jars":["jars/SolarRepublic.jar"],
-    "modPlugin": "data.scripts.SolarRepublicPlugin",
+  	"jars":["jars/AndorasFederation.jar"],
+    "modPlugin": "data.scripts.AndorasFederationPlugin",
 	"dependencies": [
 		{
 			"id": "lw_lazylib",

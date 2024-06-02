@@ -8,7 +8,7 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import data.scripts.ai.RepairDroneAI;
 
-public class SolarRepublicPlugin extends BaseModPlugin {
+public class AndorasFederationPlugin extends BaseModPlugin {
     @Override
     public PluginPick<ShipAIPlugin> pickShipAI(FleetMemberAPI member, ShipAPI ship) {
          switch (ship.getHullSpec().getHullId()){
