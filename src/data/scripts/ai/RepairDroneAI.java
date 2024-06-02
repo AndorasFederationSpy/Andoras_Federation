@@ -24,8 +24,8 @@ import java.util.Random;
 
 public class RepairDroneAI extends BaseShipAI {
     private static final float REPAIR_RANGE = 55f;
-    private static final float REPAIR_HULL = 8f;
-    private static final float REPAIR_ARMOR = 0.35f;
+    private static final float REPAIR_HULL = 1f;
+    private static final float REPAIR_ARMOR = 0.1f;
     private static final float FLUX_PER_MX_PERFORMED = 2.3f;
 
     private final Color SPARK_COLOR = new Color(255, 225, 150, 100);
@@ -158,24 +158,31 @@ public class RepairDroneAI extends BaseShipAI {
     }
 
     void repairArmorAndHull() {
-        float totalHullRepaired = 0;
-        spark = true;
+        float sizeMultiplier = 1f;
+        if (target.getHullSize() == HullSize.CAPITAL_SHIP) {
+            sizeMultiplier = 4;
+        } else if (target.getHullSize() == HullSize.CRUISER) {
+            sizeMultiplier = 3;
+        } else if (target.getHullSize() == HullSize.DESTROYER) {
+            sizeMultiplier = 2;
+        }
+
+        if(repairHull(sizeMultiplier) < 1f) {
+            repairArmor(sizeMultiplier);
+        }
+    }
+
+    float repairHull(float sizeMultiplier) {
+        float totalHullRepaired = 0f;
+
         ship.getFluxTracker().setCurrFlux(ship.getFluxTracker().getCurrFlux() + FLUX_PER_MX_PERFORMED); // TODO: DON'T HEAL ABOVE COMBAT START FOR ARMOR OR HULL
 
         // there's no skill bonus for armor repair because there's no obvious fighter skill that should affect it.
         // also repair drones are already buffed by improvements to their speed
-        float bonus = 1f;
-        if (target.getHullSize() == HullSize.CAPITAL_SHIP) {
-            bonus = 4;
-        } else if (target.getHullSize() == HullSize.CRUISER) {
-            bonus = 3;
-        } else if (target.getHullSize() == HullSize.DESTROYER) {
-            bonus = 2;
-        }
 
         if (target.getHullLevel() < .99f) {
             // repair the hull
-            totalHullRepaired = (REPAIR_HULL * bonus);
+            totalHullRepaired = (REPAIR_HULL * sizeMultiplier);
             target.setHitpoints(target.getHitpoints() + totalHullRepaired);
 
             // don't repair beyond our max
@@ -184,9 +191,20 @@ public class RepairDroneAI extends BaseShipAI {
                 totalHullRepaired -= overage;
                 target.setHitpoints(target.getMaxHitpoints());
             }
+
+            if(totalHullRepaired > 1f) {
+                Global.getCombatEngine().addFloatingDamageText(target.getLocation(), totalHullRepaired, Color.GREEN, target, ship.getWing().getSourceShip());
+                DamageReportManagerV1.addDamageReport(0f, -totalHullRepaired, 0f, 0f, DamageType.OTHER, ship.getWing().getSourceShip(), target, "Silvestris Hull Repair & Armor Welder");
+                spark = true;
+            }
         }
 
-        float totalArmorRepaired = 0;
+        return totalHullRepaired;
+    }
+
+    float repairArmor(float sizeMultiplier) {
+        float totalArmorRepaired = 0f;
+
         Point cellToFix = computeArmorCellToRepair();
         if (cellToFix != null) {
             for (int x = cellToFix.getX() - 1; x <= cellToFix.getX() + 1; ++x) {
@@ -198,7 +216,7 @@ public class RepairDroneAI extends BaseShipAI {
                     if (armorGrid.getArmorValue(x, y) < maxArmorInCell) {
                         // don't repair beyond our max
                         float cellValue = armorGrid.getArmorValue(x, y);
-                        float armorRepairAmount = (REPAIR_ARMOR * bonus);
+                        float armorRepairAmount = (REPAIR_ARMOR * sizeMultiplier);
                         armorGrid.setArmorValue(x, y, cellValue + armorRepairAmount);
 
                         float overage = armorGrid.getArmorValue(x, y) - maxArmorInCell;
@@ -212,12 +230,15 @@ public class RepairDroneAI extends BaseShipAI {
                     }
                 }
             }
+
+            if(totalArmorRepaired > 1f) {
+                Global.getCombatEngine().addFloatingDamageText(target.getLocation(), totalArmorRepaired, Color.CYAN, target, ship.getWing().getSourceShip());
+                DamageReportManagerV1.addDamageReport(-totalArmorRepaired, 0f, 0f, 0f, DamageType.OTHER, ship.getWing().getSourceShip(), target, "Silvestris Hull Repair & Armor Welder");
+                spark = true;
+            }
         }
 
-        if(totalArmorRepaired + totalHullRepaired > 1) {
-            Global.getCombatEngine().addFloatingDamageText(target.getLocation(), totalArmorRepaired + totalHullRepaired, Color.GREEN, target, ship.getWing().getSourceShip());
-            DamageReportManagerV1.addDamageReport(-totalArmorRepaired, -totalHullRepaired, 0f, 0f, DamageType.OTHER, ship.getWing().getSourceShip(), target, "Silvestris Hull Repair & Armor Welder");
-        }
+        return totalArmorRepaired;
     }
 
     ShipAPI chooseTarget() {
