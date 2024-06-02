@@ -5,7 +5,7 @@
   "type": "ENERGY",
   "mountTypeOverride": "HYBRID",
   "size": "MEDIUM",
-  "everyFrameEffect": "data.scripts.weapons.Sr_flamerEveryframe",
+  "everyFrameEffect": "andorasfederation.weapons.Sr_flamerEveryframe",
   "turretSprite": "graphics/weapons/sr_cruiserflamer.png",
   "hardpointSprite": "graphics/weapons/sr_cruiserflamer.png",
   "glowColor": [

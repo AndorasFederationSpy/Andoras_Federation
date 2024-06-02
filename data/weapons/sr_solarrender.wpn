@@ -5,7 +5,7 @@
   "size": "MEDIUM",
   "collisionClass": "RAY",
   "collisionClassByFighter": "RAY_FIGHTER",
-  "beamEffect": "data.scripts.weapons.Sr_EqualizerBeamEffect",
+  "beamEffect": "andorasfederation.weapons.Sr_EqualizerBeamEffect",
   "turretSprite": "",
   "turretGlowSprite": "graphics/weapons/sr_solarrender_glow.png",
   "turretUnderSprite": "graphics/weapons/sr_solarrender_base.png",

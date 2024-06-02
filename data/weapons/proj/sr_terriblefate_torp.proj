@@ -2,8 +2,8 @@
 	"id":"sr_terriblefate_torp",
 	"specClass":"missile",
 	"missileType":"MISSILE",
-	"onHitEffect":"data.scripts.weapons.Sr_RiftTorpedoEffect",
-	"onFireEffect":"data.scripts.weapons.Sr_RiftTorpedoEffect",
+	"onHitEffect":"andorasfederation.weapons.Sr_RiftTorpedoEffect",
+	"onFireEffect":"andorasfederation.weapons.Sr_RiftTorpedoEffect",
 	"sprite":"graphics/missiles/sr_terriblefate_torp.png",
 	"glowSprite":"graphics/missiles/sr_terriblefate_torp_glow.png",
         "glowColor": [

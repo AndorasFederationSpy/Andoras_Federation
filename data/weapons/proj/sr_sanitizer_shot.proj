@@ -2,7 +2,7 @@
 	"id":"sr_sanitizer_shot",
 	"specClass":"projectile",
 	"spawnType":"BALLISTIC",
-        "onFireEffect":"src.data.scripts.combat.Sr_AmmoRotationSecondaryPlugin",
+        "onFireEffect":"andorasfederation.combat.Sr_AmmoRotationSecondaryPlugin",
 	"collisionClass":"PROJECTILE_FF",
 	"collisionClassByFighter":"PROJECTILE_FIGHTER",
 	"length":20.0,

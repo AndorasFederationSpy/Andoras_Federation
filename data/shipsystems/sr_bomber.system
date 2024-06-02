@@ -3,7 +3,7 @@
 	"type":"STAT_MOD",
 	"aiType":"WEAPON_BOOST",
 	
-	"statsScript":"data.shipsystems.scripts.Sr_BomberStats",
+	"statsScript":"andorasfederation.shipsystems.Sr_BomberStats",
 	
 	"weaponGlowColor":[205,45,0,125],
 	"weaponTypes":[BALLISTIC],

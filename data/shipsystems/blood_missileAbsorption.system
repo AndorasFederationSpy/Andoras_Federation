@@ -2,9 +2,9 @@
 	"id":"blood_missileAbsorption",
 	"type":"STAT_MOD",
 	"aiType":"CUSTOM",
-	"aiScript":"data.scripts.shipsystems.ai.blood_MissileAbsorptionAI",
+	"aiScript":"andorasfederation.shipsystems.ai.blood_MissileAbsorptionAI",
 	
-	"statsScript":"data.scripts.shipsystems.blood_missileAbsorption",
+	"statsScript":"andorasfederation.shipsystems.blood_missileAbsorption",
 
 	"canUseWhileRightClickSystemOn":true,
 	

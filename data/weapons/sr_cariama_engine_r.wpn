@@ -3,7 +3,7 @@
 	"specClass":"beam",
 	"type":"DECORATIVE",
 	"size":"SMALL",
-	"everyFrameEffect":"data.scripts.weapons.Sr_EngineRotationPlugin",
+	"everyFrameEffect":"andorasfederation.weapons.Sr_EngineRotationPlugin",
 	"renderBelowAllWeapons":false,
 	"turretSprite":"graphics/weapons/decos/sr_cariama_engine_r.png",
 	"hardpointSprite":"graphics/weapons/decos/sr_cariama_engine_r.png",

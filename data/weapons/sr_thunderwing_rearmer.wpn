@@ -3,7 +3,7 @@
 	"specClass":"beam",
 	"type":"DECORATIVE",
 	"size":"LARGE",
-	"everyFrameEffect":"data.scripts.weapons.LandingPad",
+	"everyFrameEffect":"andorasfederation.weapons.LandingPad",
 	"showDamageWhenDecorative":false,
 	"renderBelowAllWeapons":true,
 	"renderHints":["RENDER_ADDITIVE"],

@@ -1,6 +1,6 @@
 {
 	"specClass":"beam",
-        "beamEffect": "data.scripts.weapons.Sr_LaserMissileBeamEffect",
+        "beamEffect": "andorasfederation.weapons.Sr_LaserMissileBeamEffect",
 	"id":"sr_daggersender",
 	"type":"ENERGY",
 	"size":"MEDIUM",

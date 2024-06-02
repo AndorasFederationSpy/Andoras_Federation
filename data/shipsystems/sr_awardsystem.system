@@ -3,7 +3,7 @@
 	"type":"ENGINE_MOD",
 	"aiType":"DYNAMIC_STABILIZER",
 	
-	"statsScript":"data.shipsystems.scripts.Sr_AwardSystemStats",
+	"statsScript":"andorasfederation.shipsystems.Sr_AwardSystemStats",
 	
 	"engineGlowColor":[255,175,125,225],
 	"engineGlowContrailColor":[215,175,125,225],

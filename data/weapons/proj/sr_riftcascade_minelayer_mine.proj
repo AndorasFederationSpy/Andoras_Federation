@@ -25,7 +25,7 @@
 				  "acc":500,
 				  "dec":500},
 	"behaviorSpec":{"behavior":"PROXIMITY_FUSE",
-					"onExplosionEffect":"data.scripts.weapons.RiftCascadeMineExplosion",
+					"onExplosionEffect":"andorasfederation.weapons.RiftCascadeMineExplosion",
 					"range":0,
 					"slowToMaxSpeed":true,
 					"delay":0.5,

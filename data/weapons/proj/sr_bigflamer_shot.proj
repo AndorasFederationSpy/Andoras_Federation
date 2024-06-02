@@ -1,7 +1,7 @@
 {
 	"id":"sr_bigflamer_shot",
 	"specClass":"projectile",
-	"onHitEffect":"data.scripts.weapons.Sr_DoTOnHit",
+	"onHitEffect":"andorasfederation.weapons.Sr_DoTOnHit",
 
 	"spawnType":"BALLISTIC_AS_BEAM",
 	"collisionClass":"RAY",

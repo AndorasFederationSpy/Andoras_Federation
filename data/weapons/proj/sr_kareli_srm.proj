@@ -2,7 +2,7 @@
 	"id":"sr_kareli_srm",
 	"specClass":"missile",	
 	"missileType":"MISSILE",
-        "onFireEffect":"data.scripts.combat.Sr_MissileRotationSecondaryPlugin",
+        "onFireEffect":"andorasfederation.combat.Sr_MissileRotationSecondaryPlugin",
 	"sprite":"graphics/missiles/kareli_ms2.png",
 	"size":[6,14],	
 	"center":[3,7],

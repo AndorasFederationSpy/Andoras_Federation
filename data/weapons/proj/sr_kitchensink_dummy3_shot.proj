@@ -4,7 +4,7 @@
 	"spawnType":"BALLISTIC",
 	"collisionClass":"PROJECTILE_FF",
 	"collisionClassByFighter":"PROJECTILE_FIGHTER",
-        "onHitEffect":"data.scripts.weapons.Sr_DoTOnHit",
+        "onHitEffect":"andorasfederation.weapons.Sr_DoTOnHit",
 	"length":30.0,
 	"hitGlowRadius":60,
 	"width":12.0,

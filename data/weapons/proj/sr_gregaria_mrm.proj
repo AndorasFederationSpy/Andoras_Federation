@@ -3,7 +3,7 @@
 	"specClass":"missile",	
 	"missileType":"MISSILE",
 	"sprite":"graphics/missiles/sr_sanitizer_shot.png",
-        "onFireEffect":"data.scripts.combat.Sr_MissileRotationPlugin",
+        "onFireEffect":"andorasfederation.combat.Sr_MissileRotationPlugin",
 	"size":[8,14],	
 	"center":[4,7],
 	"collisionRadius":12,

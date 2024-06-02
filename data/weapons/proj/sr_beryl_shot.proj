@@ -2,7 +2,7 @@
 	"id":"sr_beryl_shot",
 	"specClass":"projectile",
 	"spawnType":"PLASMA",
-	"onHitEffect":"data.scripts.weapons.Sr_IonCannonOnHitEffect",
+	"onHitEffect":"andorasfederation.weapons.Sr_IonCannonOnHitEffect",
 	"collisionClass":"PROJECTILE_FF",
 	"collisionClassByFighter":"PROJECTILE_FIGHTER",
 	#"width":33.0,

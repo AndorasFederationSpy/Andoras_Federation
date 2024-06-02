@@ -11,7 +11,7 @@
   "hardpointSprite": "graphics/weapons/sr_pantheraflamer_base.png",
   "hardpointGlowSprite": "graphics/weapons/sr_pantheraflamer_glow.png",
   "hardpointGunSprite": "graphics/weapons/sr_pantheraflamer_recoil.png",
-  "everyFrameEffect":"data.scripts.weapons.Sr_flamerEveryframe",
+  "everyFrameEffect":"andorasfederation.weapons.Sr_flamerEveryframe",
   "glowColor": [
     255,
     255,

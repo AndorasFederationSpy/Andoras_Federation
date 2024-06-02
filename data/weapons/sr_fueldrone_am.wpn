@@ -3,7 +3,7 @@
 	"specClass":"projectile",
 	"type":"MISSILE",
 	"size":"SMALL",
-	"everyFrameEffect": "data.scripts.weapons.Sr_RougeDroneEffect",
+	"everyFrameEffect": "andorasfederation.weapons.Sr_RougeDroneEffect",
 	"turretSprite":"graphics/missiles/sr_fueldrone_torp.png",
 	"hardpointSprite":"graphics/missiles/sr_fueldrone_torp.png",
 	"hardpointOffsets":[0, 0],

@@ -1,6 +1,6 @@
 {
 	"id":"sr_zapbrannigan_payload_shot",
-	"onFireEffect":"data.scripts.weapons.Sr_ShockRepeaterOnFireEffect",
+	"onFireEffect":"andorasfederation.weapons.Sr_ShockRepeaterOnFireEffect",
 	"specClass":"projectile",
 	"spawnType":"BALLISTIC_AS_BEAM",
 	"collisionClass":"RAY",

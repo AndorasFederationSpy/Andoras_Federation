@@ -3,7 +3,7 @@
   "specClass": "beam",
   "type": "ENERGY",
   "size": "LARGE",
-  "beamEffect": "data.scripts.weapons.Sr_EqualizerBeamEffect",
+  "beamEffect": "andorasfederation.weapons.Sr_EqualizerBeamEffect",
   "collisionClass": "RAY",
   "collisionClassByFighter": "RAY_FIGHTER",
   "turretSprite": "",
