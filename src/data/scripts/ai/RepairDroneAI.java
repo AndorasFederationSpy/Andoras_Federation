@@ -181,6 +181,7 @@ public class RepairDroneAI extends BaseShipAI {
         // also repair drones are already buffed by improvements to their speed
 
         if (target.getHullLevel() < .99f) {
+            reinforceHull(50f); // Parameter is damage reduction percent
             // repair the hull
             totalHullRepaired = (REPAIR_HULL * sizeMultiplier);
             target.setHitpoints(target.getHitpoints() + totalHullRepaired);
@@ -239,6 +240,10 @@ public class RepairDroneAI extends BaseShipAI {
         }
 
         return totalArmorRepaired;
+    }
+
+    void reinforceHull(float damageReductionPercent) {
+        target.getMutableStats().getHullDamageTakenMult().modifyMult("RepairDroneAI", (100f - damageReductionPercent) / 100f);
     }
 
     ShipAPI chooseTarget() {
