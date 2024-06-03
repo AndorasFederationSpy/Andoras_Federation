@@ -1,0 +1,68 @@
+{
+  "variantId": "sr_rafetus_sim_variant",
+  "hullId": "sr_rafetus",
+  "displayName": "Test",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0018": "sr_livyatan2"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "sr_thirtyfour",
+        "WS0010": "sr_thirtyfour",
+        "WS0013": "sr_thirtyfour",
+        "WS0015": "sr_thirtyfour",
+        "WS0016": "sr_thirtyfour"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "swarmer_fighter",
+        "WS0002": "swarmer_fighter",
+        "WS0003": "swarmer_fighter",
+        "WS0004": "swarmer_fighter",
+        "WS0005": "swarmer_fighter",
+        "WS0006": "swarmer_fighter",
+        "WS0007": "swarmer_fighter",
+        "WS0008": "swarmer_fighter"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0011": "sr_fiftyfour",
+        "WS0017": "sr_fiftyfour"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0012": "sr_megaflak",
+        "WS0014": "sr_megaflak"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "sr_salvinii_wing",
+    "sr_salvinii_wing",
+    "sr_mastodon_wing",
+    "sr_capensis_wing"
+  ]
+}
