@@ -3,7 +3,6 @@ package andorasfederation.shipsystems;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
-import com.fs.starfarer.api.impl.combat.OrionDeviceStats;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -16,28 +15,480 @@ import java.util.List;
 
 // The name is a joke I was thinking about naming it
 // Supercritical Fuel Infusion please consider it
+@SuppressWarnings("unused")
 public class Sr_BorionDevice extends BaseShipSystemScript {
+
+    Logger logger = Global.getLogger(Sr_BorionDevice.class);
+    BaseShipSystemScript[] subsystems = {
+            new BurstForward(),
+            new Vent10PercentOfFlux(),
+            new SlowDown(),
+            new ReloadSynergyWeapons(),
+            new BoostEnergyWeaponDamage()
+    };
+
+    public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
+        for(BaseShipSystemScript subsystem: subsystems) {
+            subsystem.apply(stats, id, state, effectLevel);
+        }
+    }
+
+    public void unapply(MutableShipStatsAPI stats, String id) {
+        for(BaseShipSystemScript subsystem: subsystems) {
+            subsystem.unapply(stats, id);
+        }
+    }
+
+    public static class SlowDown extends BaseShipSystemScript {
+        float speedMultiplier = 0.5f;
+
+        @Override
+        public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
+            super.apply(stats, id, state, effectLevel);
+            stats.getMaxSpeed().modifyMult("SlowDown", speedMultiplier);
+        }
+
+        @Override
+        public void unapply(MutableShipStatsAPI stats, String id) {
+            super.unapply(stats, id);
+            stats.getFluxDissipation().modifyMult("SlowDown", 1f);
+        }
+    }
+
+    public static class BoostEnergyWeaponDamage extends BaseShipSystemScript {
+        Logger logger = Global.getLogger(BoostEnergyWeaponDamage.class);
+        float bonusDamage = 100f;
+
+        @Override
+        public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
+            super.apply(stats, id, state, effectLevel);
+            stats.getEnergyWeaponDamageMult().modifyMult("BoostEnergyWeaponDamage", (100f + bonusDamage) / 100f);
+        }
+
+        @Override
+        public void unapply(MutableShipStatsAPI stats, String id) {
+            super.unapply(stats, id);
+            stats.getFluxDissipation().modifyMult("BoostEnergyWeaponDamage", 1f);
+        }
+    }
+    public static class ReloadSynergyWeapons extends BaseShipSystemScript {
+        Logger logger = Global.getLogger(ReloadSynergyWeapons.class);
+
+        @Override
+        public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
+            super.apply(stats, id, state, effectLevel);
+            if (stats.getEntity() instanceof ShipAPI) {
+                ShipAPI ship = (ShipAPI) stats.getEntity();
+                for(WeaponAPI weapon : ship.getAllWeapons()) {
+                    if(weapon.getType() == WeaponAPI.WeaponType.SYNERGY){
+                        if(weapon.usesAmmo()) {
+                            weapon.resetAmmo();
+                        }
+                    }
+                }
+            } else {
+                logger.error("ReloadSynergyWeapons was applied to non ship entity");
+            }
+        }
+
+        @Override
+        public void unapply(MutableShipStatsAPI stats, String id) {
+            super.unapply(stats, id);
+            stats.getFluxDissipation().modifyMult("SlowDown", 1f);
+        }
+    }
+
+    public static class Vent10PercentOfFlux extends BaseShipSystemScript {
+        float fluxDissipationMultiplier = 100f;
+
+        @Override
+        public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
+            super.apply(stats, id, state, effectLevel);
+            stats.getFluxDissipation().modifyMult("Vent10PercentOfFlux", fluxDissipationMultiplier);
+        }
+
+        @Override
+        public void unapply(MutableShipStatsAPI stats, String id) {
+            super.unapply(stats, id);
+            stats.getFluxDissipation().modifyMult("Vent10PercentOfFlux", 1f);
+        }
+    }
+
+    public static class BurstForward extends BaseShipSystemScript {
+        public static class PusherPlateState {
+            public float compression;
+            public float vel;
+            public List<PusherPlateImpulse> impulses = new ArrayList<PusherPlateImpulse>();
+            public void advance(float amount) {
+                List<PusherPlateImpulse> remove = new ArrayList<PusherPlateImpulse>();
+                float totalForce = 0f;
+                for (PusherPlateImpulse curr : impulses) {
+                    totalForce += curr.force;
+                    curr.elapsed += amount;
+                    if (curr.elapsed >= curr.dur) {
+                        remove.add(curr);
+                    }
+                }
+                impulses.removeAll(remove);
+
+                // assuming k of 1, and a mass of 1
+                float springForce = compression;
+                float netForce = totalForce - springForce;
+
+                vel += netForce * amount;
+                compression += vel * amount;
+
+                if (compression > 1f) {
+                    compression = 1f;
+                    vel = 0f;
+                }
+                float min = 0f;
+                //min = -0.5f;
+                if (compression < min) {
+                    compression = min;
+                    vel = 0f;
+                }
+
+            }
+        }
+
+
+        private final Sr_BorionDevice.OrionDeviceParams p;
+        private final Sr_BorionDevice.PusherPlateState pusherState = new Sr_BorionDevice.PusherPlateState();
+
+        public BurstForward() {
+            p = new Sr_BorionDevice.OrionDeviceParams();
+        }
+
+
+        protected Color orig = null;
+        protected void recolor(ShipAPI ship) {
+            if (ship == null) return;
+            if (!p.recolorTowardsEngineColor) return;
+
+            if (orig == null) orig = p.shapedExplosionColor;
+
+            Color curr = ship.getEngineController().getFlameColorShifter().getCurr();
+
+            p.shapedExplosionColor = Misc.interpolateColor(orig, curr, 0.75f);
+            p.shapedExplosionColor = Misc.setAlpha(p.shapedExplosionColor, orig.getAlpha());
+        }
+
+        protected boolean wasIdle = false;
+        protected boolean deployedBomb = false;
+        public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
+            ShipAPI ship = null;
+            //boolean player = false;
+            if (stats.getEntity() instanceof ShipAPI) {
+                ship = (ShipAPI) stats.getEntity();
+            } else {
+                return;
+            }
+
+            recolor(ship);
+
+            if (effectLevel >= 1 && !deployedBomb) {
+                for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
+                    if (slot.isSystemSlot()) {
+                        spawnBomb(ship, slot);
+                    }
+                }
+                deployedBomb = true;
+                //pusherPlateOffset = 1f;
+            } else if (state == State.COOLDOWN) {
+                deployedBomb = false;
+            }
+
+
+            float amount = Global.getCombatEngine().getElapsedInLastFrame();
+            pusherState.advance(amount);
+
+            for (WeaponAPI w : ship.getAllWeapons()) {
+                Vector2f offset = new Vector2f(p.pusherPlateMaxOffset, 0f);
+                //pusherPlateOffset = 1f;
+                offset.scale(pusherState.compression);
+                if (w.getSpec().hasTag("pusherplate")) {
+                    w.setRenderOffsetForDecorativeBeamWeaponsOnly(offset);
+                }
+            }
+        }
+
+
+        private void spawnBomb(ShipAPI source, WeaponSlotAPI slot) {
+            CombatEngineAPI engine = Global.getCombatEngine();
+            Vector2f loc = slot.computePosition(source);
+            float angle = slot.computeMidArcAngle(source);
+
+            if (pusherState.compression > 0) {
+                Vector2f offset = new Vector2f(p.pusherPlateMaxOffset, 0f);
+                offset.scale(pusherState.compression);
+                offset = Misc.rotateAroundOrigin(offset, source.getFacing());
+                Vector2f.add(loc, offset, loc);
+            }
+
+            MissileAPI bomb = (MissileAPI) engine.spawnProjectile(source, null,
+                    p.bombWeaponId,
+                    loc,
+                    angle, source.getVelocity());
+
+            float fadeInTime = p.bombFadeInTime;
+            Vector2f inheritedVel = new Vector2f(source.getVelocity());
+            inheritedVel.scale(p.bombInheritedVelocityFraction);
+            float speed = p.bombSpeed;
+
+            Vector2f vel = Misc.getUnitVectorAtDegreeAngle(angle);
+            vel.scale(speed);
+            Vector2f.add(vel, inheritedVel, vel);
+            bomb.getVelocity().set(vel);
+            bomb.fadeOutThenIn(fadeInTime);
+
+            bomb.setCollisionClass(CollisionClass.NONE);
+            bomb.setEmpResistance(1000);
+            bomb.setEccmChanceOverride(1f);
+
+
+            float liveTime = p.bombLiveTime;
+            bomb.setMaxFlightTime(liveTime);
+
+
+            Global.getCombatEngine().addPlugin(createBombImpactPlugin(source, slot, bomb, loc));
+        }
+
+        private void notifySpawnedExplosionParticles(Vector2f bombLoc) {
+            // UwU ??
+        }
+
+        private EveryFrameCombatPlugin createBombImpactPlugin(final ShipAPI ship, final WeaponSlotAPI launchSlot,
+                                                                final MissileAPI bomb, final Vector2f launchLoc) {
+
+            return new BaseEveryFrameCombatPlugin() {
+                float elapsed = 0f;
+                float impactTime = 0f;
+                float brakingTime = 0f;
+                float forceAngle;
+                float jitterTime = 0f;
+                boolean triggered = false;
+                boolean braking = false;
+                boolean done = false;
+
+                @Override
+                public void advance(float amount, List<InputEventAPI> events) {
+                    if (Global.getCombatEngine().isPaused()) return;
+
+                    elapsed += amount;
+
+                    String impactCounterId = "od_system_counter";
+
+                    if (bomb.isFizzling()) {
+                        if (!triggered) {
+
+                            pusherState.addImpulse(p.pusherPlateImpulseForce, p.pusherPlateImpulseDuration);
+
+                            forceAngle = Misc.getAngleInDegrees(bomb.getLocation(), launchSlot.computePosition(ship));
+                            float angleToShip = Misc.getAngleInDegrees(bomb.getLocation(), ship.getLocation());
+                            if (Misc.getAngleDiff(angleToShip, forceAngle) > 90f) {
+                                forceAngle += 180f;
+                            }
+
+                            float diff = Misc.getAngleDiff(angleToShip, forceAngle);
+                            float turnDir = Misc.getClosestTurnDirection(angleToShip, forceAngle);
+                            forceAngle = angleToShip + diff * turnDir * 0.2f;
+
+                            triggered = true;
+                            ship.getMutableStats().getDynamic().getMod(impactCounterId).modifyFlat("od_launch_" + launchLoc, 1f);
+
+                            if (Global.getCombatEngine().getViewport().isNearViewport(ship.getLocation(), 800f)) {
+                                float angle = forceAngle + 180f;
+
+                                int numParticles = p.shapedExplosionNumParticles;
+                                float minSize = p.shapedExplosionMinParticleSize;
+                                float maxSize = p.shapedExplosionMaxParticleSize;
+                                Color pc = p.shapedExplosionColor;
+
+                                float minDur = p.shapedExplosionMinParticleDur;
+                                float maxDur = p.shapedExplosionMaxParticleDur;
+
+                                float arc = p.shapedExplosionArc;
+                                float scatter = p.shapedExplosionScatter;
+                                float minVel = p.shapedExplosionMinParticleVel;
+                                float maxVel = p.shapedExplosionMaxParticleVel;
+
+                                float launchOffset = p.shapedExplosionOffset;
+                                float endSizeMin = p.shapedExplosionEndSizeMin;
+                                float endSizeMax = p.shapedExplosionEndSizeMax;
+
+                                Vector2f spawnPoint = Misc.getUnitVectorAtDegreeAngle(forceAngle);
+                                spawnPoint.scale(launchOffset);
+                                Vector2f.add(bomb.getLocation(), spawnPoint, spawnPoint);
+                                for (int i = 0; i < numParticles; i++) {
+                                    //p.setMaxAge(500 + (int)(Math.random() * 1000f));
+                                    float angleOffset = (float) Math.random();
+                                    if (angleOffset > 0.2f) {
+                                        angleOffset *= angleOffset;
+                                    }
+                                    float speedMult = 1f - angleOffset;
+                                    speedMult = 0.5f + speedMult * 0.5f;
+                                    angleOffset *= Math.signum((float) Math.random() - 0.5f);
+                                    angleOffset *= arc/2f;
+                                    float theta = (float) Math.toRadians(angle + angleOffset);
+                                    float r = (float) (Math.random() * Math.random() * scatter);
+                                    float x = (float)Math.cos(theta) * r;
+                                    float y = (float)Math.sin(theta) * r;
+                                    Vector2f pLoc = new Vector2f(spawnPoint.x + x, spawnPoint.y + y);
+
+                                    float speed = minVel + (maxVel - minVel) * (float) Math.random();
+                                    speed *= speedMult;
+
+                                    Vector2f pVel = Misc.getUnitVectorAtDegreeAngle((float) Math.toDegrees(theta));
+                                    pVel.scale(speed);
+
+                                    float pSize = minSize + (maxSize - minSize) * (float) Math.random();
+                                    float pDur = minDur + (maxDur - minDur) * (float) Math.random();
+                                    float endSize = endSizeMin + (endSizeMax - endSizeMin) * (float) Math.random();
+                                    Global.getCombatEngine().addNebulaParticle(pLoc, pVel, pSize, endSize, 0.1f, 0.5f, pDur, pc);
+                                }
+
+                                notifySpawnedExplosionParticles(bomb.getLocation());
+                            }
+                        }
+                    }
+
+                    boolean multipleImpacts = ship.getMutableStats().getDynamic().getMod(impactCounterId).computeEffective(0) > 1;
+
+                    String id = "od_system_mod";
+                    ship.getMutableStats().getMaxSpeed().unmodifyFlat(id);
+                    //float maxSpeedWithoutBonus = ship.getMaxSpeedWithoutBoost();
+                    float maxSpeedWithoutBonus = ship.getMutableStats().getMaxSpeed().getModifiedValue();
+
+                    if (triggered) {
+                        jitterTime += amount;
+                        float intensity = bomb.getFlightTime() / bomb.getMaxFlightTime();
+                        if (intensity > 1f) intensity = 1f;
+                        if (triggered) intensity = 1f;
+                        if (braking) {
+                            intensity = 1f - brakingTime * 2f;
+                            if (intensity < 0) intensity = 0;
+                        }
+                        float alt = 1f - (jitterTime / p.maxJitterDur);
+                        if (alt < intensity) {
+                            intensity = Math.max(alt, 0f);
+                        }
+                        Color jc = p.jitterColor;
+                        ship.setJitter(this, jc, intensity, 3, 0f, 0f);
+                    }
+
+                    if (triggered && !braking) {
+                        impactTime += amount * p.impactRateMult;
+
+                        float mag = (1f - impactTime) * (1f - impactTime);
+
+                        //mag = (float) Math.sin(impactTime * Math.PI);
+                        //mag *= mag;
+                        if (mag > 0) mag = (float) Math.sqrt(mag);
+
+                        Vector2f forcePoint = launchSlot.computePosition(ship);
+
+                        float dirToCenter = Misc.getAngleInDegrees(forcePoint, ship.getLocation());
+                        float angleDiff = Misc.getAngleDiff(forceAngle, dirToCenter);
+
+                        float totalAccel = p.impactAccel;
+                        float portionAppliedToAngularVelocity = angleDiff / 90f;
+                        if (portionAppliedToAngularVelocity > 1f) portionAppliedToAngularVelocity = 1f;
+
+                        Vector2f acc = Misc.getUnitVectorAtDegreeAngle(forceAngle);
+                        acc.scale(totalAccel * (1f - portionAppliedToAngularVelocity * 0.2f));
+                        acc.scale(mag * amount);
+
+                        Vector2f.add(ship.getVelocity(), acc, ship.getVelocity());
+
+                        float angVelChange = portionAppliedToAngularVelocity * ship.getMaxTurnRate() * 0.25f;
+                        angVelChange *= mag;
+                        angVelChange *= Misc.getClosestTurnDirection(forceAngle, dirToCenter);
+                        ship.setAngularVelocity(ship.getAngularVelocity() + angVelChange * amount);
+
+                        float maxSpeedBoost = 1000f * Math.max(0f, (1f - portionAppliedToAngularVelocity) * 0.5f);
+
+                        if (maxSpeedBoost > 0) {
+                            ship.getMutableStats().getMaxSpeed().modifyFlat(id, maxSpeedBoost);
+                        } else {
+                            ship.getMutableStats().getMaxSpeed().unmodifyFlat(id);
+                        }
+                        ship.getMutableStats().getDeceleration().modifyFlat(id, Math.max(maxSpeedWithoutBonus, ship.getVelocity().length() - maxSpeedWithoutBonus));
+                        //ship.getMutableStats().getTurnAcceleration().modifyFlat(id, 100f * (1f - mag));
+                        //ship.giveCommand(ShipCommand.ACCELERATE, null, 0);
+                        ship.blockCommandForOneFrame(ShipCommand.ACCELERATE);
+                        ship.blockCommandForOneFrame(ShipCommand.ACCELERATE_BACKWARDS);
+                        ship.giveCommand(ShipCommand.DECELERATE, null, 0);
+                        //ship.getEngineController().forceShowAccelerating();
+                        if (impactTime >= 1f) {
+                            braking = true;
+                            //ship.getMutableStats().getTurnAcceleration().unmodify(id);
+                            ship.getMutableStats().getMaxSpeed().unmodify(id);
+                        }
+                    }
+
+                    if (braking) {
+                        if (!multipleImpacts) {
+                            ship.getMutableStats().getDeceleration().modifyFlat(id, 2f * Math.max(maxSpeedWithoutBonus, ship.getVelocity().length() - maxSpeedWithoutBonus));
+                            //ship.giveCommand(ShipCommand.ACCELERATE, null, 0);
+                            ship.blockCommandForOneFrame(ShipCommand.ACCELERATE);
+                            ship.blockCommandForOneFrame(ShipCommand.ACCELERATE_BACKWARDS);
+                            ship.giveCommand(ShipCommand.DECELERATE, null, 0);
+                            //ship.getEngineController().forceShowAccelerating();
+                        }
+                        brakingTime += amount;
+                        float threshold = 3f;
+                        if (multipleImpacts) threshold = 0.1f;
+                        if (brakingTime >= threshold || ship.getVelocity().length() <= maxSpeedWithoutBonus) {
+                            done = true;
+                        }
+                    }
+
+
+                    if ((!triggered && elapsed > 1f) || done) {
+                        Global.getCombatEngine().removePlugin(this);
+
+                        ship.getMutableStats().getDeceleration().unmodify(id);
+                        //ship.getMutableStats().getTurnAcceleration().unmodify(id);
+                        ship.getMutableStats().getMaxSpeed().unmodify(id);
+
+                        ship.getMutableStats().getDynamic().getMod(impactCounterId).unmodifyFlat("od_launch_" + launchLoc);
+                    }
+                }
+            };
+        }
+
+
+        @Override
+        public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
+            if (ship.getEngineController().isFlamedOut() || ship.getEngineController().isFlamingOut()) {
+                return false;
+            }
+            return super.isUsable(system, ship);
+        }
+    }
     public static class PusherPlateImpulse {
         public float force;
         public float dur;
         public float elapsed;
     }
+
     public static class PusherPlateState {
         public float compression;
         public float vel;
-        public List<OrionDeviceStats.PusherPlateImpulse> impulses = new ArrayList<OrionDeviceStats.PusherPlateImpulse>();
+        public List<PusherPlateImpulse> impulses = new ArrayList<PusherPlateImpulse>();
 
         public void addImpulse(float force, float dur) {
-            OrionDeviceStats.PusherPlateImpulse ppi = new OrionDeviceStats.PusherPlateImpulse();
+            PusherPlateImpulse ppi = new PusherPlateImpulse();
             ppi.force = force;
             ppi.dur = dur;
             impulses.add(ppi);
 
         }
         public void advance(float amount) {
-            List<OrionDeviceStats.PusherPlateImpulse> remove = new ArrayList<OrionDeviceStats.PusherPlateImpulse>();
+            List<PusherPlateImpulse> remove = new ArrayList<PusherPlateImpulse>();
             float totalForce = 0f;
-            for (OrionDeviceStats.PusherPlateImpulse curr : impulses) {
+            for (PusherPlateImpulse curr : impulses) {
                 totalForce += curr.force;
                 curr.elapsed += amount;
                 if (curr.elapsed >= curr.dur) {
@@ -66,8 +517,6 @@ public class Sr_BorionDevice extends BaseShipSystemScript {
 
         }
     }
-
-
     public static class OrionDeviceParams {
         public float bombFadeInTime = 0.15f;
         public float bombLiveTime = 0.25f;
@@ -101,345 +550,5 @@ public class Sr_BorionDevice extends BaseShipSystemScript {
 
         public String bombWeaponId = "od_bomblauncher";
     }
-
-
-    protected OrionDeviceStats.OrionDeviceParams p = new OrionDeviceStats.OrionDeviceParams();
-    protected OrionDeviceStats.PusherPlateState pusherState = new OrionDeviceStats.PusherPlateState();
-
-    public Sr_BorionDevice() {
-        p = new OrionDeviceStats.OrionDeviceParams();
-        //p.recolorTowardsEngineColor = true;
-    }
-
-
-    protected Color orig = null;
-    protected void recolor(ShipAPI ship) {
-        if (ship == null) return;
-        if (!p.recolorTowardsEngineColor) return;
-
-        if (orig == null) orig = p.shapedExplosionColor;
-
-        Color curr = ship.getEngineController().getFlameColorShifter().getCurr();
-
-        p.shapedExplosionColor = Misc.interpolateColor(orig, curr, 0.75f);
-        p.shapedExplosionColor = Misc.setAlpha(p.shapedExplosionColor, orig.getAlpha());
-    }
-
-    protected boolean wasIdle = false;
-    protected boolean deployedBomb = false;
-    public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
-        ShipAPI ship = null;
-        //boolean player = false;
-        if (stats.getEntity() instanceof ShipAPI) {
-            ship = (ShipAPI) stats.getEntity();
-        } else {
-            return;
-        }
-
-        recolor(ship);
-
-        if (effectLevel >= 1 && !deployedBomb) {
-            for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
-                if (slot.isSystemSlot()) {
-                    spawnBomb(ship, slot);
-                }
-            }
-            deployedBomb = true;
-            //pusherPlateOffset = 1f;
-        } else if (state == State.COOLDOWN) {
-            deployedBomb = false;
-        }
-
-
-        float amount = Global.getCombatEngine().getElapsedInLastFrame();
-        pusherState.advance(amount);
-
-        for (WeaponAPI w : ship.getAllWeapons()) {
-            Vector2f offset = new Vector2f(p.pusherPlateMaxOffset, 0f);
-            //pusherPlateOffset = 1f;
-            offset.scale(pusherState.compression);
-            if (w.getSpec().hasTag("pusherplate")) {
-                w.setRenderOffsetForDecorativeBeamWeaponsOnly(offset);
-            }
-        }
-
-        advanceImpl(amount, ship, state, effectLevel);
-    }
-
-    protected void advanceImpl(float amount, ShipAPI ship, State state, float effectLevel) {
-
-    }
-
-
-    public void unapply(MutableShipStatsAPI stats, String id) {
-    }
-
-    public void spawnBomb(ShipAPI source, WeaponSlotAPI slot) {
-        CombatEngineAPI engine = Global.getCombatEngine();
-        Vector2f loc = slot.computePosition(source);
-        float angle = slot.computeMidArcAngle(source);
-
-        if (pusherState.compression > 0) {
-            Vector2f offset = new Vector2f(p.pusherPlateMaxOffset, 0f);
-            offset.scale(pusherState.compression);
-            offset = Misc.rotateAroundOrigin(offset, source.getFacing());
-            Vector2f.add(loc, offset, loc);
-        }
-
-        MissileAPI bomb = (MissileAPI) engine.spawnProjectile(source, null,
-                p.bombWeaponId,
-                loc,
-                angle, source.getVelocity());
-        if (source != null) {
-            Global.getCombatEngine().applyDamageModifiersToSpawnedProjectileWithNullWeapon(
-                    source, WeaponAPI.WeaponType.MISSILE, false, bomb.getDamage());
-        }
-
-        float fadeInTime = p.bombFadeInTime;
-        Vector2f inheritedVel = new Vector2f(source.getVelocity());
-        inheritedVel.scale(p.bombInheritedVelocityFraction);
-        float speed = p.bombSpeed;
-
-        Vector2f vel = Misc.getUnitVectorAtDegreeAngle(angle);
-        vel.scale(speed);
-        Vector2f.add(vel, inheritedVel, vel);
-        bomb.getVelocity().set(vel);
-        bomb.fadeOutThenIn(fadeInTime);
-
-        bomb.setCollisionClass(CollisionClass.NONE);
-        bomb.setEmpResistance(1000);
-        bomb.setEccmChanceOverride(1f);
-
-
-        float liveTime = p.bombLiveTime;
-        bomb.setMaxFlightTime(liveTime);
-
-
-        Global.getCombatEngine().addPlugin(createBombImpactPlugin(source, slot, bomb, loc, angle));
-    }
-
-    protected void notifySpawnedExplosionParticles(Vector2f bombLoc) {
-
-    }
-
-    protected EveryFrameCombatPlugin createBombImpactPlugin(final ShipAPI ship, final WeaponSlotAPI launchSlot,
-                                                            final MissileAPI bomb, final Vector2f launchLoc, final float launchAngle) {
-
-        return new BaseEveryFrameCombatPlugin() {
-            float elapsed = 0f;
-            float impactTime = 0f;
-            float brakingTime = 0f;
-            float forceAngle;
-            float jitterTime = 0f;
-            boolean triggered = false;
-            boolean braking = false;
-            boolean done = false;
-
-            @Override
-            public void advance(float amount, List<InputEventAPI> events) {
-                if (Global.getCombatEngine().isPaused()) return;
-
-                elapsed += amount;
-
-                String impactCounterId = "od_system_counter";
-
-                if (bomb.isFizzling()) {
-                    if (!triggered) {
-
-                        pusherState.addImpulse(p.pusherPlateImpulseForce, p.pusherPlateImpulseDuration);
-
-                        forceAngle = Misc.getAngleInDegrees(bomb.getLocation(), launchSlot.computePosition(ship));
-                        float angleToShip = Misc.getAngleInDegrees(bomb.getLocation(), ship.getLocation());
-                        if (Misc.getAngleDiff(angleToShip, forceAngle) > 90f) {
-                            forceAngle += 180f;
-                        }
-
-                        float diff = Misc.getAngleDiff(angleToShip, forceAngle);
-                        float turnDir = Misc.getClosestTurnDirection(angleToShip, forceAngle);
-                        forceAngle = angleToShip + diff * turnDir * 0.2f;
-
-                        triggered = true;
-                        ship.getMutableStats().getDynamic().getMod(impactCounterId).modifyFlat("od_launch_" + launchLoc, 1f);
-
-                        if (Global.getCombatEngine().getViewport().isNearViewport(ship.getLocation(), 800f)) {
-                            float angle = forceAngle + 180f;
-
-                            int numParticles = p.shapedExplosionNumParticles;
-                            float minSize = p.shapedExplosionMinParticleSize;
-                            float maxSize = p.shapedExplosionMaxParticleSize;
-                            Color pc = p.shapedExplosionColor;
-
-                            float minDur = p.shapedExplosionMinParticleDur;
-                            float maxDur = p.shapedExplosionMaxParticleDur;
-
-                            float arc = p.shapedExplosionArc;
-                            float scatter = p.shapedExplosionScatter;
-                            float minVel = p.shapedExplosionMinParticleVel;
-                            float maxVel = p.shapedExplosionMaxParticleVel;
-
-                            float launchOffset = p.shapedExplosionOffset;
-                            float endSizeMin = p.shapedExplosionEndSizeMin;
-                            float endSizeMax = p.shapedExplosionEndSizeMax;
-
-                            Vector2f spawnPoint = Misc.getUnitVectorAtDegreeAngle(forceAngle);
-                            spawnPoint.scale(launchOffset);
-                            Vector2f.add(bomb.getLocation(), spawnPoint, spawnPoint);
-                            for (int i = 0; i < numParticles; i++) {
-                                //p.setMaxAge(500 + (int)(Math.random() * 1000f));
-                                float angleOffset = (float) Math.random();
-                                if (angleOffset > 0.2f) {
-                                    angleOffset *= angleOffset;
-                                }
-                                float speedMult = 1f - angleOffset;
-                                speedMult = 0.5f + speedMult * 0.5f;
-                                angleOffset *= Math.signum((float) Math.random() - 0.5f);
-                                angleOffset *= arc/2f;
-                                float theta = (float) Math.toRadians(angle + angleOffset);
-                                float r = (float) (Math.random() * Math.random() * scatter);
-                                float x = (float)Math.cos(theta) * r;
-                                float y = (float)Math.sin(theta) * r;
-                                Vector2f pLoc = new Vector2f(spawnPoint.x + x, spawnPoint.y + y);
-
-                                float speed = minVel + (maxVel - minVel) * (float) Math.random();
-                                speed *= speedMult;
-
-                                Vector2f pVel = Misc.getUnitVectorAtDegreeAngle((float) Math.toDegrees(theta));
-                                pVel.scale(speed);
-
-                                float pSize = minSize + (maxSize - minSize) * (float) Math.random();
-                                float pDur = minDur + (maxDur - minDur) * (float) Math.random();
-                                float endSize = endSizeMin + (endSizeMax - endSizeMin) * (float) Math.random();
-                                //Global.getCombatEngine().addSmoothParticle(pLoc, pVel, pSize, 1f, pDur, pc);
-                                Global.getCombatEngine().addNebulaParticle(pLoc, pVel, pSize, endSize, 0.1f, 0.5f, pDur, pc);
-                                //Global.getCombatEngine().addNebulaSmoothParticle(pLoc, pVel, pSize, endSize, 0.1f, 0.5f, pDur, pc);
-                                //Global.getCombatEngine().addSwirlyNebulaParticle(pLoc, pVel, pSize, endSize, 0.1f, 0.5f, pDur, pc, false);
-                            }
-                            //Global.getCombatEngine().setPaused(true);
-
-                            notifySpawnedExplosionParticles(bomb.getLocation());
-                        }
-                    }
-                }
-
-                boolean multipleImpacts = ship.getMutableStats().getDynamic().getMod(impactCounterId).computeEffective(0) > 1;
-
-                String id = "od_system_mod";
-                ship.getMutableStats().getMaxSpeed().unmodifyFlat(id);
-                //float maxSpeedWithoutBonus = ship.getMaxSpeedWithoutBoost();
-                float maxSpeedWithoutBonus = ship.getMutableStats().getMaxSpeed().getModifiedValue();
-
-//				if (!triggered) {
-//					ship.giveCommand(ShipCommand.ACCELERATE, null, 0);
-//				}
-
-                if (triggered) {
-                    jitterTime += amount;
-                    float intensity = bomb.getFlightTime() / bomb.getMaxFlightTime();
-                    if (intensity > 1f) intensity = 1f;
-                    if (triggered) intensity = 1f;
-                    if (braking) {
-                        intensity = 1f - brakingTime * 2f;
-                        if (intensity < 0) intensity = 0;
-                    }
-                    float alt = 1f - (jitterTime / p.maxJitterDur);
-                    if (alt < intensity) {
-                        intensity = Math.max(alt, 0f);
-                    }
-                    Color jc = p.jitterColor;
-                    ship.setJitter(this, jc, intensity, 3, 0f, 0f);
-                }
-
-                if (triggered && !braking) {
-                    impactTime += amount * p.impactRateMult;
-
-                    float mag = (1f - impactTime) * (1f - impactTime);
-
-                    //mag = (float) Math.sin(impactTime * Math.PI);
-                    //mag *= mag;
-                    if (mag > 0) mag = (float) Math.sqrt(mag);
-
-                    Vector2f forcePoint = launchSlot.computePosition(ship);
-
-                    float dirToCenter = Misc.getAngleInDegrees(forcePoint, ship.getLocation());
-                    float angleDiff = Misc.getAngleDiff(forceAngle, dirToCenter);
-//					if (angleDiff > 180f) {
-//						angleDiff = 360f - angleDiff;
-//					}
-
-                    float totalAccel = p.impactAccel;
-                    float portionAppliedToAngularVelocity = angleDiff * 1f / 90f;
-                    if (portionAppliedToAngularVelocity > 1f) portionAppliedToAngularVelocity = 1f;
-
-                    Vector2f acc = Misc.getUnitVectorAtDegreeAngle(forceAngle);
-                    acc.scale(totalAccel * (1f - portionAppliedToAngularVelocity * 0.2f));
-                    acc.scale(mag * amount);
-
-                    Vector2f.add(ship.getVelocity(), acc, ship.getVelocity());
-
-                    float angVelChange = portionAppliedToAngularVelocity * ship.getMaxTurnRate() * 0.25f;
-                    angVelChange *= mag;
-                    angVelChange *= Misc.getClosestTurnDirection(forceAngle, dirToCenter);
-                    ship.setAngularVelocity(ship.getAngularVelocity() + angVelChange * amount);
-
-                    float maxSpeedBoost = 1000f * Math.max(0f, (1f - portionAppliedToAngularVelocity) * 0.5f);
-
-                    if (maxSpeedBoost > 0) {
-                        ship.getMutableStats().getMaxSpeed().modifyFlat(id, maxSpeedBoost);
-                    } else {
-                        ship.getMutableStats().getMaxSpeed().unmodifyFlat(id);
-                    }
-                    ship.getMutableStats().getDeceleration().modifyFlat(id, 1f * Math.max(maxSpeedWithoutBonus, ship.getVelocity().length() - maxSpeedWithoutBonus));
-                    //ship.getMutableStats().getTurnAcceleration().modifyFlat(id, 100f * (1f - mag));
-                    //ship.giveCommand(ShipCommand.ACCELERATE, null, 0);
-                    ship.blockCommandForOneFrame(ShipCommand.ACCELERATE);
-                    ship.blockCommandForOneFrame(ShipCommand.ACCELERATE_BACKWARDS);
-                    ship.giveCommand(ShipCommand.DECELERATE, null, 0);
-                    //ship.getEngineController().forceShowAccelerating();
-                    if (impactTime >= 1f) {
-                        braking = true;
-                        //ship.getMutableStats().getTurnAcceleration().unmodify(id);
-                        ship.getMutableStats().getMaxSpeed().unmodify(id);
-                    }
-                }
-
-                if (braking) {
-                    if (!multipleImpacts) {
-                        ship.getMutableStats().getDeceleration().modifyFlat(id, 2f * Math.max(maxSpeedWithoutBonus, ship.getVelocity().length() - maxSpeedWithoutBonus));
-                        //ship.giveCommand(ShipCommand.ACCELERATE, null, 0);
-                        ship.blockCommandForOneFrame(ShipCommand.ACCELERATE);
-                        ship.blockCommandForOneFrame(ShipCommand.ACCELERATE_BACKWARDS);
-                        ship.giveCommand(ShipCommand.DECELERATE, null, 0);
-                        //ship.getEngineController().forceShowAccelerating();
-                    }
-                    brakingTime += amount;
-                    float threshold = 3f;
-                    if (multipleImpacts) threshold = 0.1f;
-                    if (brakingTime >= threshold || ship.getVelocity().length() <= maxSpeedWithoutBonus) {
-                        done = true;
-                    }
-                }
-
-
-                if ((!triggered && elapsed > 1f) || done) {
-                    Global.getCombatEngine().removePlugin(this);
-
-                    ship.getMutableStats().getDeceleration().unmodify(id);
-                    //ship.getMutableStats().getTurnAcceleration().unmodify(id);
-                    ship.getMutableStats().getMaxSpeed().unmodify(id);
-
-                    ship.getMutableStats().getDynamic().getMod(impactCounterId).unmodifyFlat("od_launch_" + launchLoc);
-                }
-            }
-        };
-    }
-
-
-    @Override
-    public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
-        if (ship.getEngineController().isFlamedOut() || ship.getEngineController().isFlamingOut()) {
-            return false;
-        }
-        return super.isUsable(system, ship);
-    }
-
 }
+
