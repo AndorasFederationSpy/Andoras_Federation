@@ -72,7 +72,7 @@
     {
       "id": "WS0006",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "SYNERGY",
       "mount": "TURRET",
       "arc": 205,
       "angle": -15,
@@ -81,7 +81,7 @@
     {
       "id": "WS0007",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "SYNERGY",
       "mount": "TURRET",
       "arc": 205,
       "angle": 15,
@@ -198,7 +198,7 @@
     {
       "id": "WS0020",
       "size": "MEDIUM",
-      "type": "SYNERGY",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 155,
       "angle": -15,
@@ -207,7 +207,7 @@
     {
       "id": "WS0021",
       "size": "MEDIUM",
-      "type": "SYNERGY",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 155,
       "angle": 15,
@@ -252,7 +252,7 @@
     {
       "id": "WS0026",
       "size": "LARGE",
-      "type": "SYNERGY",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 155,
       "angle": 15,
@@ -261,7 +261,7 @@
     {
       "id": "WS0027",
       "size": "LARGE",
-      "type": "SYNERGY",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 155,
       "angle": -15,
@@ -308,22 +308,76 @@
         13.5, -23,
         14, -23
       ]
+    },
+    {
+      "id": "WS0031",
+      "size": "MEDIUM",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 155,
+      "angle": -180,
+      "locations": [-97.5, 61]
+    },
+    {
+      "id": "WS0032",
+      "size": "MEDIUM",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 155,
+      "angle": 180,
+      "locations": [-97.5, -61]
+    },
+    {
+      "id": "WS0030",
+      "size": "MEDIUM",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 155,
+      "angle": -180,
+      "locations": [-81.5, 74]
+    },
+    {
+      "id": "WS0033",
+      "size": "MEDIUM",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 155,
+      "angle": 180,
+      "locations": [-81.5, -74]
+    },
+    {
+      "id": "WS0034",
+      "size": "MEDIUM",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 155,
+      "angle": 145,
+      "locations": [-105.5, 23]
+    },
+    {
+      "id": "WS0035",
+      "size": "MEDIUM",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 155,
+      "angle": -145,
+      "locations": [-105.5, -23]
     }
   ],
   "engineSlots": [
     {
-      "location": [-112, 28.5],
+      "location": [-111, 26],
       "length": 40,
       "width": 10,
-      "angle": 165,
+      "angle": 145,
       "contrailSize": 40,
       "style": "SR_AENOCYON_VENOM"
     },
     {
-      "location": [-112, -28.5],
+      "location": [-111, -26],
       "length": 40,
       "width": 10,
-      "angle": -165,
+      "angle": -145,
       "contrailSize": 40,
       "style": "SR_AENOCYON_VENOM"
     },
