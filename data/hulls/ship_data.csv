@@ -41,6 +41,8 @@ Hyaenodon,sr_hyaenodon,Heavy Destroyer,House Belladona,ammofeed,24,18000,850,140
 Bachmanni,sr_bachmanni,Assault Destroyer,House Belladona,ammofeed,22,16000,1000,18000,,700,126,,100,45,50,90,45,2800,FRONT,,190,0.3,0.8,,,420,580,120,260,5,50,12,264000,5,10,480,0.25,12,12,,,,,,,,"rare_bp, merc, ind",0.5,0.3,2,2,,
 Daeodon,sr_daeodon,Heavy Frigate,House Belladona,maneuveringjets,9,2600,280,7450,,520,34,,180,120,120,100,100,200,PHASE,sr_damper,,,,,,30,40,15,25,3,50,12,185000,4,7,180,0.25,10,10,,,,,,,,"rare_bp, merc, ind",0.5,0.5,3,3,,
 Dinictis,sr_dinictis,Booster Frigate,House Belladona,burndrive,6,2000,220,7200,,500,32,,240,200,200,160,120,180,FRONT,,130,0.2,0.6,,,15,30,12,16,2,55,18,50000,3,7,180,0.25,8,8,,,,,,,,"rare_bp, merc, ind",0.5,0.6,2,3,,
+Bieti2,sr_bieti2,Missile Cruiser,House Belladona,sr_borion_device,16,10000,700,8500,,650,170,,65,45,30,20,30,1300,PHASE,sr_damper,,,,,,250,400,300,75,3,25,8,115000,3,13,480,0.23,22,22,,,,,,,RENDER_ENGINES_BELOW_HULL,"rare_bp, merc, ind",,0.4,2,4,,
+
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #Logistic Ships,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Baryonyx,sr_baryonyx,Ultrafreighter,House Belladona,flarelauncher_active,8,10000,300,3500,,150,80,,30,3,3,4,3,4400,PHASE,sr_damper,,,,,,70,100,3250,80,5,16,5,115000,2,20,540,0.20,14,14,,,,,,,FREIGHTER,"rare_bp, merc, ind",,0.3,3,5,,
