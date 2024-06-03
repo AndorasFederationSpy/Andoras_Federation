@@ -1,20 +1,19 @@
 DEV CREDITS:
 
+Meower The Great - Making the Github, coding, and ideas!
+
 Slavodan - Ideas, Writing, Lore, descriptions, and kitbashing House Belladona Ships and helping give the mod life!
 
 Tesser- Spriting various ships, creating the mech designs and helping in shaping House Raa ship design!!
 
-[REDACTED] - You know who you are and why.
 
 BIG CREDITS: 
 
-Meower The Great - Making the Github and......
-
 MiniDeth3 - Spriting some fighters, ships and weaps!
 
-Quacken - Spriting the House Augustus ships and shaping their ship style!
+Quacken - Spriting the House Augustus ships and largely shaping their ship style!
 
-Tecrys - Spriting the....
+Tecrys - Spriting the Eocursor for House Augustus!
 
 PureTilt- Coding some quality weapons scripts, ship systems and AI for various things! 
 
@@ -24,7 +23,9 @@ Mr. Bultach- For letting me use bultach beam sounds for a few of mine!
 
 Turkler - For various sprites used for bashing or used mostly as is!
 
+Lylhm - Making some custom sounds for the mod!!
 
+Sigma Draconis - Flags/Icons!
 
 Lil Credits :3
 
