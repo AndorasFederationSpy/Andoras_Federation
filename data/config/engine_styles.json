@@ -12,8 +12,19 @@
 		"contrailColor":[245,110,10,50],
 		"type":"SMOKE" # GLOW or SMOKE
         },
+	"HOUSE_RAA":{
+	"engineColor":[30,150,35,255],
+		"contrailParticleSizeMult":4,
+		"contrailParticleDuration":1,
+		"contrailParticleFinalSizeMult":2.5,
+		"contrailMaxSpeedMult":0.5f,
+		"contrailAngularVelocityMult":0f,
+		"contrailColor":[30,150,35,25],
+		"contrailCampaignColor":[30,150,35,75],
+		"type":"GLOW" # GLOW or SMOKE
+	},
 	"HOUSE_BELLONA":{
-		"glowSprite":"graphics/fx/beam_weave_core.png", # not implemented
+		"glowSprite":"graphics/fx/beam_weave_core.png", 
 		"glowShape":"graphics/vfx/weave_engine.png",
 		"engineColor":[245,135,10,255],
 		"engineCampaignColor":[245,135,10,255],
@@ -48,17 +59,6 @@
 		"contrailColor":[50,50,50,50],
 		"contrailCampaignColor":[70,200,190,75],
 		#"contrailCampaignColor":[50,110,120,50],
-		"type":"GLOW" # GLOW or SMOKE
-	},
-        "HOUSE_RAA":{
-		"engineColor":[42,198,19,42],
-		"contrailParticleSizeMult":3,
-		"contrailParticleDuration":2,
-		"contrailParticleFinalSizeMult":1.5,
-		"contrailMaxSpeedMult":0.5,
-		"contrailAngularVelocityMult":0,
-		"contrailColor":[42,179,22,42],
-		"contrailCampaignColor":[48,216,15,48],
 		"type":"GLOW" # GLOW or SMOKE
 	},
         "HOUSE_AUGUSTUS":{
