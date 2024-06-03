@@ -4,9 +4,9 @@
   "projectileSpecId": "sr_hdic_shot",
   "type": "ENERGY",
   "size": "LARGE",
-  "turretSprite": "graphics/weapons/sr_hdic.png",
+  "turretSprite": "",
   "turretGlowSprite": "graphics/weapons/sr_hdic_glow.png",
-  "hardpointSprite": "graphics/weapons/sr_hdic.png",
+  "hardpointSprite": "",
   "hardpointGlowSprite": "graphics/weapons/sr_hdic_glow.png",
   "glowColor": [
     100,
