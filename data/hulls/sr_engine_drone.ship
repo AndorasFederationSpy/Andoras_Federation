@@ -15,7 +15,7 @@
     ],
     "shieldRadius": 2,
     "spriteName": "graphics/ships/fighters/sr_engine_drone.png",
-    "style": "HOUSE_BELLONA",
+    "style": "SR_AENOCYON_VENOM",
     "viewOffset": 0,
     "weaponSlots": [],
     "engineSlots": [{
