@@ -163,7 +163,7 @@ Rift Cascade Emitter Minelayer,sr_riftcascade_minelayer,0,,,,,1000,,25,,,,,,ENER
 #MECH STUFF,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Kareli Missile Pod,sr_karelipod,2,,0,1200,,75,,15,35,0,35,,,ENERGY,0,,0,2.85,7,0.2,0,0,0,0,,450,100,5,85,,,"ANTI_FTR, DO_NOT_AIM, DO_NOT_CONSERVE, SYSTEM","no_sell, no_drop, no_drop_salvage, no_dealer",,,,Anti Small Craft,Fast,Excellent,,,,,,,,
-,sr_karelipod_dummy1,2,,0,1200,,150,,5,35,0,35,,,FRAGMENTATION,0,,0,2.85,7,0.2,0,0,0,0,,450,100,6,125,,,"ANTI_FTR, DO_NOT_AIM, DO_NOT_CONSERVE, SYSTEM","no_sell, no_drop, no_drop_salvage, no_dealer",,,,Anti Small Craft,Fast,Excellent,,,,,,,,
+,sr_karelipod_dummy1,2,,0,1200,,125,,5,35,0,35,,,FRAGMENTATION,0,,0,2.85,7,0.2,0,0,0,0,,450,100,6,125,,,"ANTI_FTR, DO_NOT_AIM, DO_NOT_CONSERVE, SYSTEM","no_sell, no_drop, no_drop_salvage, no_dealer",,,,Anti Small Craft,Fast,Excellent,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Kareli Cannon,sr_karelicannon,2,,0,750,,100,,7,35,0,,,,HIGH_EXPLOSIVE,70,,0,0.31,,,0,0,0,0,,700,,,200,,,SYSTEM,"no_sell, no_drop, no_drop_salvage, no_dealer",,House Raa,,Anti Armor,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
