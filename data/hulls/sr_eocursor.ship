@@ -118,7 +118,7 @@
       "locations": [-34.5, -91]
     },
     {
-      "id": "WS0016",
+      "id": "WS0012",
       "size": "MEDIUM",
       "type": "SYNERGY",
       "mount": "TURRET",
@@ -127,7 +127,7 @@
       "locations": [58.5, -44]
     },
     {
-      "id": "WS0017",
+      "id": "WS0013",
       "size": "MEDIUM",
       "type": "SYNERGY",
       "mount": "TURRET",
@@ -136,7 +136,7 @@
       "locations": [58.5, 44]
     },
     {
-      "id": "WS0018",
+      "id": "WS0014",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -145,7 +145,7 @@
       "locations": [34.5, 76]
     },
     {
-      "id": "WS0019",
+      "id": "WS0015",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -154,7 +154,7 @@
       "locations": [34.5, -76]
     },
     {
-      "id": "WS0020",
+      "id": "WS0016",
       "size": "MEDIUM",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -163,7 +163,7 @@
       "locations": [7.5, -63]
     },
     {
-      "id": "WS0021",
+      "id": "WS0017",
       "size": "MEDIUM",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -172,7 +172,7 @@
       "locations": [7.5, 63]
     },
     {
-      "id": "WS0022",
+      "id": "WS0018",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -181,7 +181,7 @@
       "locations": [-56.5, -78]
     },
     {
-      "id": "WS0023",
+      "id": "WS0019",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -190,7 +190,7 @@
       "locations": [-56.5, 78]
     },
     {
-      "id": "WS0024",
+      "id": "WS0020",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -199,7 +199,7 @@
       "locations": [-84.5, -59]
     },
     {
-      "id": "WS0025",
+      "id": "WS0021",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -208,7 +208,7 @@
       "locations": [-84.5, 59]
     },
     {
-      "id": "WS0026",
+      "id": "WS0022",
       "size": "LARGE",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -217,7 +217,7 @@
       "locations": [-19.5, 35]
     },
     {
-      "id": "WS0027",
+      "id": "WS0023",
       "size": "LARGE",
       "type": "ENERGY",
       "mount": "TURRET",
