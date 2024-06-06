@@ -6,10 +6,6 @@
 
 	"statsScript":"andorasfederation.shipsystems.PhaseTransfer",
 
-	"runScriptWhileIdle":true, # unapply() never gets called
-
-	#"fadeActivationSoundOnChargedown":true,
-
 	"useSound":"system_orion_device_fire",
 	"outOfUsesSound":"gun_out_of_ammo",
 

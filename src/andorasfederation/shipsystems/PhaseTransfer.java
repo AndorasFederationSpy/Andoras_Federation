@@ -55,38 +55,15 @@ public class PhaseTransfer extends BaseShipSystemScript {
         phaseShadow = null;
     }
 
-//    private void transfer() {
-//
-//        Global.getCombatEngine().removeEntity(ship);
-//    }
-
     private ShipAPI spawnPhantom() {
         ShipVariantAPI variant = ship.getVariant().clone();
+        ShipAPI phaseShadow = spawnShipOrWingDirectly(variant.getHullVariantId(), FleetMemberType.SHIP, FleetSide.PLAYER, 1f, new Vector2f(100000f, 100000f), ship.getFacing());
 
-        Global.getCombatEngine().getFleetManager(ship.getOwner()).setSuppressDeploymentMessages(true);
-        ShipAPI phantom = spawnShipOrWingDirectly(variant.getHullVariantId(), FleetMemberType.SHIP, FleetSide.PLAYER, 1f, new Vector2f(100000f, 100000f), ship.getFacing());
-        Global.getCombatEngine().getFleetManager(ship.getOwner()).setSuppressDeploymentMessages(false);
+        Global.getCombatEngine().addEntity(phaseShadow);
 
-        CombatFleetManagerAPI manager = Global.getCombatEngine().getFleetManager(phantom.getOwner());
-        manager.removeDeployed(phantom, true);
-
-        Global.getCombatEngine().addEntity(phantom);
-        phantom.setShipAI(null);
-
-        MutableShipStatsAPI stats = phantom.getMutableStats();
-
-        stats.getTimeMult().modifyMult("rat_phantom", 1.1f);
-
-        stats.getHullDamageTakenMult().modifyMult("rat_phantom", 0f);
-
-        phantom.setCustomData("rat_phantom_parent", ship);
-
-        phantom.setPhased(true);
-        phantom.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DO_NOT_VENT);
-        return phantom;
+        return phaseShadow;
     }
 }
-
 
 
 
