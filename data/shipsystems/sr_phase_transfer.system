@@ -1,5 +1,5 @@
 {
-	"id":"sr_borion_device",
+	"id":"sr_phase_transfer",
 	"type":"STAT_MOD",
 	#"aiType":"NONE",
 	"aiType":"BURN_DRIVE",
@@ -7,11 +7,5 @@
 	"statsScript":"andorasfederation.shipsystems.PhaseTransfer",
 
 	"useSound":"system_orion_device_fire",
-	"outOfUsesSound":"gun_out_of_ammo",
-
-	"aiHints":{
-		"activeSpeedIncrease":0,
-		"burstMovementPotential":400,
-		"averageSpeedIncrease":100,
-	}
+	"outOfUsesSound":"gun_out_of_ammo"
 }
