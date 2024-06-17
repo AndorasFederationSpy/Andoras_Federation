@@ -42,7 +42,7 @@
       "size": "MEDIUM",
       "type": "BUILT_IN",
       "mount": "HARDPOINT",
-      "arc": 3,
+      "arc": 5,
       "angle": 0,
       "locations": [-25.5, -0]
     },
