@@ -2,7 +2,7 @@
   "id": "af_flarebattery",
   "specClass": "projectile",
   "projectileSpecId": "af_satusflare",
-  "type": "SYSTEM",
+  "type": "MISSILE",
   "size": "MEDIUM",
   "turretSprite": "",
   "hardpointSprite": "",
