@@ -51,7 +51,7 @@ sr_pax_drone,sr_pax_drone_variant_wing,"no_drop, no_sell, support1, support, fig
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #MECHS,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-sr_kareli_wing,sr_kareli_variant_wing,"fighter3, fighter, rare_bp",2,,8,17,V,4000,500,,2,FIGHTER,Orbital Assault Frame,17,21500,,,,,,,,,,,,,
+sr_kareli_wing,sr_kareli_variant_wing,"fighter7, fighter, rare_bp",2,,8,17,V,4000,500,450,1,FIGHTER,Orbital Assault Frame,17,21500,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,

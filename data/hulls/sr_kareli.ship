@@ -17,7 +17,7 @@
   "builtInWeapons": {
     "WS0001": "sr_kareli_plates",
     "WS0002": "sr_kareli_arms",
-    "WS0003": "sr_kareli_head",
+    "WS0003": "af_rangefinder",
     "WS0004": "sr_karelicannon",
     "WS0005": "sr_karelipod"
   },
@@ -43,11 +43,11 @@
     {
       "id": "WS0003",
       "size": "SMALL",
-      "type": "DECORATIVE",
+      "type": "BUILT_IN",
       "mount": "TURRET",
-      "arc": 0,
+      "arc": 95,
       "angle": 0,
-      "locations": [-5, -0]
+      "locations": [-3, -0]
     },
     {
       "id": "WS0004",
@@ -72,45 +72,9 @@
       "size": "SMALL",
       "type": "SYSTEM",
       "mount": "HIDDEN",
-      "arc": 0,
+      "arc": 90,
       "angle": 0,
       "locations": [2, -0]
-    },
-    {
-      "id": "WS0007",
-      "size": "SMALL",
-      "type": "SYSTEM",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": 45,
-      "locations": [6, 11.5]
-    },
-    {
-      "id": "WS0008",
-      "size": "SMALL",
-      "type": "SYSTEM",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": -45,
-      "locations": [6, -11.5]
-    },
-    {
-      "id": "WS0009",
-      "size": "SMALL",
-      "type": "SYSTEM",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": 145,
-      "locations": [-12.5, 9]
-    },
-    {
-      "id": "WS0010",
-      "size": "SMALL",
-      "type": "SYSTEM",
-      "mount": "HIDDEN",
-      "arc": 0,
-      "angle": -145,
-      "locations": [-12.5, -9]
     }
   ],
   "engineSlots": [
