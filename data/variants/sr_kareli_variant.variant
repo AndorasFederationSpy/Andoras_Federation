@@ -1,7 +1,7 @@
 {
   "variantId": "sr_kareli_variant_wing",
   "hullId": "sr_kareli",
-  "displayName": "O.A.F.",
+  "displayName": "Golem O.A.F.",
   "goalVariant": false,
   "fluxCapacitors": 0,
   "fluxVents": 0,
@@ -13,6 +13,7 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
+        "WS0003": "af_rangefinder",
         "WS0004": "sr_karelicannon",
         "WS0005": "sr_karelipod"
       }
