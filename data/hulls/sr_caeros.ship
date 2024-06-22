@@ -1,0 +1,90 @@
+{
+  "hullName": "Caeros",
+  "hullId": "sr_caeros",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/sr_caeros.png",
+  "style": "HOUSE_RAA",
+  "height": 86,
+  "width": 76,
+  "center": [38, 47],
+  "collisionRadius": 61.5,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 61.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "ground_support"
+  ],
+  "builtInWeapons": {
+    "WS0003": "af_flarebattery",
+    "WS0004": "sr_kareli_rearmer"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 3,
+      "angle": 0,
+      "locations": [24.5, 15]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 3,
+      "angle": -0,
+      "locations": [24.5, -15]
+    },
+    {
+      "id": "WS0003",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [-25.5, -0]
+    },
+    {
+      "id": "WS0004",
+      "size": "LARGE",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 180,
+      "locations": [-33.5, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-28, 18],
+      "length": 25,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 25,
+      "style": "CUSTOM",
+      "styleId": "HOUSE_RAA"
+    },
+    {
+      "location": [-28, -18],
+      "length": 25,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 25,
+      "style": "CUSTOM",
+      "styleId": "HOUSE_RAA"
+    }
+  ],
+  "bounds": [
+    27, -19,
+    12, -34,
+    -9.5, -34.5,
+    -25, -10.5,
+    -25, 10.5,
+    -9.5, 34.5,
+    12, 34,
+    27, 19,
+    30, -5
+  ]
+}

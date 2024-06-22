@@ -13,6 +13,7 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
+        "WS0003": "af_rangefinder",
         "WS0004": "sr_karelicannon",
         "WS0005": "sr_karelipod"
       }

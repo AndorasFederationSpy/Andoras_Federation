@@ -13,8 +13,9 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "sr_interdictor",
-        "WS0002": "sr_interdictor"
+        "WS0001": "sr_falcata",
+        "WS0002": "sr_falcata",
+        "WS0004": "sr_thirteen"
       }
     },
     {

@@ -15,13 +15,7 @@
     "sr_pax_varadgirii_drone"
   ],
   "builtInWeapons": {
-    "WS0001": "sr_hdic",
-    "WS0012": "sr_barracuda",
-    "WS0013": "sr_barracuda",
-    "WS0014": "sr_barracuda",
-    "WS0015": "sr_barracuda",
-    "WS0028": "sr_forsteri",
-    "WS0029": "sr_forsteri"
+    "WS0001": "sr_hdic"
   },
   "weaponSlots": [
     {
@@ -72,7 +66,7 @@
     {
       "id": "WS0006",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "SYNERGY",
       "mount": "TURRET",
       "arc": 205,
       "angle": -15,
@@ -81,7 +75,7 @@
     {
       "id": "WS0007",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "SYNERGY",
       "mount": "TURRET",
       "arc": 205,
       "angle": 15,
@@ -125,42 +119,6 @@
     },
     {
       "id": "WS0012",
-      "size": "LARGE",
-      "type": "BUILT_IN",
-      "mount": "HARDPOINT",
-      "arc": 5,
-      "angle": 90,
-      "locations": [59.5, 72]
-    },
-    {
-      "id": "WS0013",
-      "size": "LARGE",
-      "type": "BUILT_IN",
-      "mount": "HARDPOINT",
-      "arc": 5,
-      "angle": -90,
-      "locations": [59.5, -72]
-    },
-    {
-      "id": "WS0014",
-      "size": "LARGE",
-      "type": "BUILT_IN",
-      "mount": "HARDPOINT",
-      "arc": 5,
-      "angle": 90,
-      "locations": [61, 78.5]
-    },
-    {
-      "id": "WS0015",
-      "size": "LARGE",
-      "type": "BUILT_IN",
-      "mount": "HARDPOINT",
-      "arc": 5,
-      "angle": -90,
-      "locations": [61, -78.5]
-    },
-    {
-      "id": "WS0016",
       "size": "MEDIUM",
       "type": "SYNERGY",
       "mount": "TURRET",
@@ -169,7 +127,7 @@
       "locations": [58.5, -44]
     },
     {
-      "id": "WS0017",
+      "id": "WS0013",
       "size": "MEDIUM",
       "type": "SYNERGY",
       "mount": "TURRET",
@@ -178,7 +136,7 @@
       "locations": [58.5, 44]
     },
     {
-      "id": "WS0018",
+      "id": "WS0014",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -187,7 +145,7 @@
       "locations": [34.5, 76]
     },
     {
-      "id": "WS0019",
+      "id": "WS0015",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -196,25 +154,25 @@
       "locations": [34.5, -76]
     },
     {
-      "id": "WS0020",
+      "id": "WS0016",
       "size": "MEDIUM",
-      "type": "SYNERGY",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 155,
       "angle": -15,
       "locations": [7.5, -63]
     },
     {
-      "id": "WS0021",
+      "id": "WS0017",
       "size": "MEDIUM",
-      "type": "SYNERGY",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 155,
       "angle": 15,
       "locations": [7.5, 63]
     },
     {
-      "id": "WS0022",
+      "id": "WS0018",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -223,7 +181,7 @@
       "locations": [-56.5, -78]
     },
     {
-      "id": "WS0023",
+      "id": "WS0019",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -232,7 +190,7 @@
       "locations": [-56.5, 78]
     },
     {
-      "id": "WS0024",
+      "id": "WS0020",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -241,7 +199,7 @@
       "locations": [-84.5, -59]
     },
     {
-      "id": "WS0025",
+      "id": "WS0021",
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
@@ -250,40 +208,22 @@
       "locations": [-84.5, 59]
     },
     {
-      "id": "WS0026",
+      "id": "WS0022",
       "size": "LARGE",
-      "type": "SYNERGY",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 155,
       "angle": 15,
       "locations": [-19.5, 35]
     },
     {
-      "id": "WS0027",
+      "id": "WS0023",
       "size": "LARGE",
-      "type": "SYNERGY",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 155,
       "angle": -15,
       "locations": [-19.5, -35]
-    },
-    {
-      "id": "WS0028",
-      "size": "SMALL",
-      "type": "BUILT_IN",
-      "mount": "HARDPOINT",
-      "arc": 5,
-      "angle": -65,
-      "locations": [121, 23.5]
-    },
-    {
-      "id": "WS0029",
-      "size": "SMALL",
-      "type": "BUILT_IN",
-      "mount": "HARDPOINT",
-      "arc": 5,
-      "angle": 65,
-      "locations": [121, -23.5]
     },
     {
       "id": "LB 1",
@@ -312,18 +252,18 @@
   ],
   "engineSlots": [
     {
-      "location": [-112, 28.5],
+      "location": [-111, 26],
       "length": 40,
       "width": 10,
-      "angle": 165,
+      "angle": 145,
       "contrailSize": 40,
       "style": "SR_AENOCYON_VENOM"
     },
     {
-      "location": [-112, -28.5],
+      "location": [-111, -26],
       "length": 40,
       "width": 10,
-      "angle": -165,
+      "angle": -145,
       "contrailSize": 40,
       "style": "SR_AENOCYON_VENOM"
     },

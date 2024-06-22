@@ -19,19 +19,19 @@ import java.util.Random;
 //based on code from Sundog's ICE repair drone and Dark.Revenant's Imperium Titan
 
 public class RepairDroneAI extends BaseShipAI {
-    private static final float REPAIR_RANGE = 55f;
-    private static final float REPAIR_HULL = 1f;
-    private static final float REPAIR_ARMOR = 0.1f;
-    private static final float FLUX_PER_MX_PERFORMED = 2.3f;
+    private static final float REPAIR_RANGE = 45f;
+    private static final float REPAIR_HULL = 1.55f;
+    private static final float REPAIR_ARMOR = 0.45f;
+    private static final float FLUX_PER_MX_PERFORMED = 1.85f;
 
-    private final Color SPARK_COLOR = new Color(255, 225, 150, 100);
+    private final Color SPARK_COLOR = new Color(255, 190, 90, 120);
     //private final Color SPARK_COLOR_CORE = new Color(255, 175, 25, 100);
     private static final String SPARK_SOUND_ID = "ed_shock";
     //private final float SPARK_DURATION = 0.2f;
     //private final float SPARK_BRIGHTNESS = 1.0f;
     //private final float SPARK_MAX_RADIUS = 7f;
     private static final float SPARK_CHANCE = 0.67f;
-    private static final float SPARK_SPEED_MULTIPLIER = 500.0f;
+    private static final float SPARK_SPEED_MULTIPLIER = 350.0f;
     private static final float SPARK_VOLUME = 1.0f;
     private static final float SPARK_PITCH = 1.0f;
 

@@ -1,4 +1,4 @@
-package andorasfederation.combat;
+package andorasfederation.weapons;
 
 import andorasfederation.ai.WingRTBAI;
 import com.fs.starfarer.api.Global;
@@ -10,15 +10,15 @@ import org.lwjgl.util.vector.Vector2f;
 import java.util.Iterator;
 import java.util.List;
 
-public class Sr_LandingPad implements EveryFrameWeaponEffectPlugin {
-   private final String hull_id = "sr_thunderwing"; // hull_id of the fighter
+public class LandingPad2 implements EveryFrameWeaponEffectPlugin {
+   private final String hull_id = "sr_kareli"; // hull_id of the fighter
    private final String customData_key = "wasWingDocked";
    private final String customDataAI_key = "WingDockingAI";
    private boolean dockedFromSequence = false;
    private boolean dockedFromLanding = false;
-   private IntervalUtil _rearmTimer = new IntervalUtil(19.0F, 21.0F);
-   //private final IntervalUtil healingTimer = new IntervalUtil(1.45F, 1.5F);
-   private boolean isDocking = false;
+   private IntervalUtil _rearmTimer = new IntervalUtil(10.0F, 15.0F);
+   private final IntervalUtil healingTimer = new IntervalUtil(1.45F, 1.5F);
+   private boolean isDocking = true;
    private boolean stillAlive = true;
 
    private boolean shouldRearm(ShipAPI ship) {
@@ -78,7 +78,7 @@ public class Sr_LandingPad implements EveryFrameWeaponEffectPlugin {
                         leader.setCollisionClass(CollisionClass.SHIP);
                      }
                   }
-               } while(!leader.getHullSpec().getHullId().equals("sr_thunderwing")); //equal hull_id of the fighter
+               } while(!leader.getHullSpec().getHullId().equals("sr_kareli")); //equal hull_id of the fighter
             } while(!leader.isAlive());
 
             this.stillAlive = true;
@@ -173,19 +173,19 @@ public class Sr_LandingPad implements EveryFrameWeaponEffectPlugin {
                   //this.setStatus(parent, "Rearming..");
                }
 
-               //this.healingTimer.advance(amount);
-               //if (this.healingTimer.intervalElapsed()) {
-               //   Float curr_hp = leader.getHitpoints();
-               //   Float max_hp = leader.getMaxHitpoints();
-               //   if (curr_hp < max_hp) {
-               //      Float regen_hp = 2.0F;
-               //      if (curr_hp + regen_hp > max_hp) {
-               //         leader.setHitpoints(max_hp);
-               //      } else {
-               //         leader.setHitpoints(curr_hp + regen_hp);
-               //      }
-               //  }
-               //}
+               this.healingTimer.advance(amount);
+               if (this.healingTimer.intervalElapsed()) {
+                  Float curr_hp = leader.getHitpoints();
+                  Float max_hp = leader.getMaxHitpoints();
+                  if (curr_hp < max_hp) {
+                     Float regen_hp = 2.0F;
+                     if (curr_hp + regen_hp > max_hp) {
+                        leader.setHitpoints(max_hp);
+                     } else {
+                        leader.setHitpoints(curr_hp + regen_hp);
+                     }
+                 }
+               }
 
                this.isDocking = false;
             }

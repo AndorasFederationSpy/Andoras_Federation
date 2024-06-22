@@ -15,7 +15,7 @@
 	"size":[32,50],	
 	"center":[16,34],
 	"collisionRadius":15,
-	"collisionClass":"MISSILE_NO_FF",
+	"collisionClass":"HITS_SHIPS_AND_ASTEROIDS",
 	"explosionColor":[116,255,79,255],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":450, # purely visual
 	"explosionSpec":{"duration":0.1f, # not visual
