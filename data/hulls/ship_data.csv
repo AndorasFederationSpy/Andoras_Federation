@@ -93,7 +93,7 @@ Gruesli Drone,sr_gruesli_drone,PD Drone,House Raa,,,325,75,350,,70,,,325,350,280
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #HouseAugustus,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Eocursor,sr_eocursor,Phase Battlecruiser,House Augustus,sr_phase_transfer,27,8500,1350,18500,,850,285,1,65,45,45,12,20,2450,PHASE,phasecloak,,,,0.033,0.047,400,625,150,400,6,67,8,385000,4,21,615,0.23,47,47,,,,,,,,"rare_bp, merc",,0.8,4,6,,
+Eocursor,sr_eocursor,Phase Battlecruiser,House Augustus,highenergyfocus,27,8500,1350,18500,,850,285,1,65,45,45,12,20,2450,PHASE,sr_phase_transfer,,,,0.033,0.047,400,625,150,400,6,67,8,385000,4,21,615,0.23,47,47,,,,,,,,"rare_bp, merc",,0.8,4,6,,
 Varadgirii,sr_varadgirii,Support Carrier,House Augustus,recalldevice,21,10000,700,10000,,550,140,5,45,10,5,8,4,2350,OMNI,,360,0.6,0.55,,,300,750,120,100,4,25,7,370000,4,13,540,0.23,34,34,,,,,,,CARRIER,"rare_bp, merc",,0.45,2,4,,
 Terrelli,sr_terrelli,Heavy Skirmisher,House Augustus,displacer,20,7500,1350,12000,,850,175,,70,45,35,25,30,1850,FRONT,,230,0.45,0.55,,,80,225,65,180,3,60,8,335000,5,27,420,0.23,36,36,,,,,,,,"rare_bp, merc",,0.35,3,4,,
 Delfini,sr_delfini,Phase Frigate,House Augustus,phaseteleporter,6,2000,250,3250,,150,40,,135,115,100,80,100,165,PHASE,phasecloak,,,,0.03,0.04,5,10,15,25,1,25,11,45000,8,30,90,0.19,9,9,,,,,,,,"rare_bp, merc",,0.35,2,2,,

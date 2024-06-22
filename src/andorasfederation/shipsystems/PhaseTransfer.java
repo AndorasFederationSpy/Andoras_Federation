@@ -7,69 +7,57 @@ import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import org.apache.log4j.Logger;
-import org.lwjgl.util.vector.Vector2f;
+
 
 public class PhaseTransfer extends BaseShipSystemScript {
-    final static String PHASE_SHADOW_TAG = "PHASE_SHADOW";
-    final static String ORIGINAL_SHIP_TAG = "ORIGINAL_SHIP";
     Logger logger = Global.getLogger(PhaseTransfer.class);
     ShipAPI phaseShadow;
+    private long longStartMillis;
 
     @Override
     public void apply(MutableShipStatsAPI stats, String id, ShipSystemStatsScript.State state, float effectLevel) {
-        logger.warn(String.format("PhaseTransfer::apply(%s)", effectLevel));
-        if (stats.getEntity() == null) {
+        logger.warn(String.format("PhaseTransfer::apply(%s) state == %s", effectLevel, state));
+
+        if (stats.getEntity() == null ) {
             return;
         }
+        
+        CombatEngineAPI combatEngine = Global.getCombatEngine();
+        ShipAPI ship = (ShipAPI)stats.getEntity();
 
-        if(phaseShadow == null && state == State.IN) {
-            ShipAPI ship = (ShipAPI) stats.getEntity();
-            ship.addTag(ORIGINAL_SHIP_TAG);
-
-            if (!ship.hasTag(PHASE_SHADOW_TAG)) {
-                phaseShadow = spawnPhantom(Global.getCombatEngine(), ship);
-            } else {
-                logger.warn("Dunno, do smthng");
+        if (state == State.IN) {
+            if(phaseShadow == null) {
+                phaseShadow = spawnPhantom(combatEngine, ship);
+                longStartMillis = System.currentTimeMillis();
+                ship.setCollisionClass(CollisionClass.NONE);
+                ship.setAlphaMult(0.5f);
+                ship.setApplyExtraAlphaToEngines(true);
+                ship.getMutableStats().getMaxSpeed().modifyMult("CloakEffect", 4f);
+                ship.getMutableStats().getAcceleration().modifyMult("CloakEffect", 10f);
+                ship.getMutableStats().getMaxTurnRate().modifyMult("CloakEffect", 4f);
+                ship.getMutableStats().getTurnAcceleration().modifyMult("CloakEffect", 10f);
+                ship.giveCommand(ShipCommand.HOLD_FIRE, null, 0);
+            }
+        } else if(state == State.OUT) {
+            if(phaseShadow != null) {
+                if(System.currentTimeMillis() - longStartMillis > 5000) {
+                    ship.getLocation().set(phaseShadow.getLocation());
+                    ship.setFacing(phaseShadow.getFacing());
+                    ship.getVelocity().set(phaseShadow.getVelocity());
+                }
+                ship.setCollisionClass(CollisionClass.SHIP);
+                ship.setAlphaMult(1f);
+                ship.setApplyExtraAlphaToEngines(true);
+                ship.getMutableStats().getMaxSpeed().modifyMult("CloakEffect", 1f);
+                ship.getMutableStats().getAcceleration().modifyMult("CloakEffect", 1f);
+                ship.getMutableStats().getMaxTurnRate().modifyMult("CloakEffect", 1f);
+                ship.getMutableStats().getTurnAcceleration().modifyMult("CloakEffect", 1f);
+                ship.giveCommand(ShipCommand.FIRE, null, 0);
+                removePhantom(Global.getCombatEngine(), ship);
             }
         }
     }
-
-//    void transferToOriginalShip(CombatEngineAPI combatEngine, ShipAPI ship) {
-//        for(ShipAPI otherShip: combatEngine.getShips()) {
-//            if(ship != otherShip && ship.hasTag(ORIGINAL_SHIP_TAG) && ship.getHullSize() != FIGHTER) {
-//                combatEngine.setPlayerShipExternal(otherShip);
-//                if(ship.hasTag(PHASE_SHADOW_TAG)) {
-//                    logger.warn("Ship with tag PHASE_SHADOW_TAG was found");
-//                }
-//            }
-//        }
-//        if(combatEngine.getPlayerShip() != ship) {
-//            combatEngine.removeEntity(ship);
-//        }
-//    }
-
-//    void phaseJump(CombatEngineAPI combatEngine, ShipAPI ship) {
-//        for(ShipAPI otherShip: combatEngine.getShips()) {
-//            if(ship != otherShip && ship.hasTag(ORIGINAL_SHIP_TAG)) {
-//                combatEngine.removeEntity(otherShip);
-//            }
-//        }
-//    }
-
-    @Override
-    public void unapply(MutableShipStatsAPI stats, String id) {
-        super.unapply(stats, id);
-        logger.warn("PhaseTransfer::unapply()");
-
-        ShipAPI ship = (ShipAPI) stats.getEntity();
-//        transferToOriginalShip(Global.getCombatEngine(), ship);
-        if(phaseShadow != null) {
-            removePhantom(Global.getCombatEngine(), ship);
-        }
-    }
-
     private void removePhantom(CombatEngineAPI combatEngine, ShipAPI ship) {
-        combatEngine.setPlayerShipExternal(ship);
         for(FighterWingAPI fighter: phaseShadow.getAllWings()) {
             combatEngine.getFleetManager(ship.getOwner()).removeDeployed(fighter, true);
         }
@@ -80,33 +68,34 @@ public class PhaseTransfer extends BaseShipSystemScript {
 
     private ShipAPI spawnPhantom(CombatEngineAPI combatEngine, ShipAPI ship) {
         ShipVariantAPI variant = ship.getVariant().clone();
+
+        for(WeaponAPI weaponAPI : ship.getAllWeapons()) {
+            if(!weaponAPI.getSlot().isBuiltIn()) {
+                variant.addWeapon(weaponAPI.getSlot().getId(), weaponAPI.getId());
+            }
+        }
+        variant.autoGenerateWeaponGroups();
+
         combatEngine.getFleetManager(ship.getOwner()).setSuppressDeploymentMessages(true);
-//        ShipAPI phaseShadow = spawnShipOrWingDirectly(variant.getHullVariantId(), FleetMemberType.SHIP, FleetSide.PLAYER, 1f, new Vector2f(100000f, 100000f), ship.getFacing());
         FleetMemberType type = FleetMemberType.SHIP;
 
-        FleetMemberAPI member = Global.getFactory().createFleetMember(type, variant.getHullVariantId());
+        FleetMemberAPI member = Global.getFactory().createFleetMember(type, variant);
         member.setOwner(ship.getOwner());
         member.getCrewComposition().addCrew(member.getNeededCrew());
 
-        Vector2f spawnLocation = new Vector2f(ship.getLocation().x + 5 * ship.getVelocity().x,
-                ship.getLocation().y + 5 * ship.getVelocity().y);
-
-        phaseShadow = combatEngine.getFleetManager(ship.getOwner()).spawnFleetMember(member, spawnLocation, ship.getFacing(), 0f);
+        phaseShadow = combatEngine.getFleetManager(ship.getOwner()).spawnFleetMember(member, ship.getLocation(), ship.getFacing(), 0f);
 
         phaseShadow.setCRAtDeployment(ship.getCRAtDeployment());
         phaseShadow.setCurrentCR(ship.getCurrentCR());
 
-        combatEngine.getFleetManager(ship.getOwner()).setSuppressDeploymentMessages(false);
+        phaseShadow.getVelocity().set(ship.getVelocity());
 
-        phaseShadow.addTag(PHASE_SHADOW_TAG);
+        phaseShadow.setShipSystemDisabled(true);
+        phaseShadow.getMutableStats().getArmorDamageTakenMult().modifyMult("Phantom", 0.3f);
+        phaseShadow.getMutableStats().getHullDamageTakenMult().modifyMult("Phantom", 0.3f);
 
         combatEngine.addEntity(phaseShadow);
-
-        // Implement 2 options by velocity if velocity is high and by facing if velocity is low
-
-        phaseShadow.getVelocity().set(ship.getVelocity());
-        combatEngine.setPlayerShipExternal(phaseShadow);
-        phaseShadow.giveCommand(ShipCommand.TOGGLE_SHIELD_OR_PHASE_CLOAK, null, 0);
+        combatEngine.getFleetManager(ship.getOwner()).setSuppressDeploymentMessages(false);
 
         return phaseShadow;
     }
