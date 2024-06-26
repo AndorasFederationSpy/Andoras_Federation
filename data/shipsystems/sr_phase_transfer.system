@@ -1,0 +1,11 @@
+{
+	"id":"sr_phase_transfer",
+	"type":"STAT_MOD",
+	#"aiType":"NONE",
+	"aiType":"BURN_DRIVE",
+
+	"statsScript":"andorasfederation.shipsystems.PhaseTransfer",
+
+	"useSound":"system_orion_device_fire",
+	"outOfUsesSound":"gun_out_of_ammo"
+}
