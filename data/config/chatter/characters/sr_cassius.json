@@ -9,24 +9,24 @@
 	"lines":{
 		"start":[
 			{"text":"Well, I do believe it is time we feed them to the wolves, my Goodman."},
-                        {"text":"Alea Iacta Est"},
-			{"text":"Audentes Fortuna Juvat? Cacatne Ursus in Silvis?"},
-			{"text":"I expect no mercy. I ask only that if I fall, honor my bones and send them to the sun."},
-			{"text":"My heart was my brother. And I no longer believe in a world that says he was too weak to deserve life. He would have believed in this. In the hope for something new. For Him, I can believe that too."},
-			{"text":"We can only obey what we are. Without a storm, you and I? We’re just men. But give us this. Give us conflict…how we rattle and roar."}
+                        {"text":"Up for a race?"},
+			{"text":"They made their beds. Now let them shit in them."},
+			{"text":"Per aspera ad astra"},
+			{"text":""},
+			{"text":"I'm foxy but I'm not a beast. I just win."}
 		],
 		"start_boss":[
-			{"text":"I know death well enough to hear it gather its breath"},
-			{"text":"You are Destroyers, without a doubt. But can you be Builders?"},
-			{"text":"Do not fear for me. Instead, pity them."},
-			{"text":"You all think you’re the chosen people. The keepers of the flame. Please. You know how many have thought that? You’re just like the rest. Too vain to realize the flame has gone out. Your dream was dead before any of us were ever born."},
-			{"text":"She’s pretty as a peach, but she’s all rotten inside. I took a bite once, if you catch my flow."}
+			{"text":"I know death well enough to hear it gather its breath."},
+			{"text":"I expect no mercy. I ask only that if I fall, honor my bones and send them to the sun."},
+			{"text":"Once more unto the breach, it seems."},
+			{"text":"Then it's to be a merry quest!"},
+			{"text":"My goodmen, it's uncivilized to do anything but laugh in the face of death. Why do you think I'm always so jaunty these days?"}
 			
 		],
 		"retreat":[
-			{"text":"You make it sound so easy."},
-			{"text":"You’re being ridiculous. In the end I’ll be more famous than you anyway, my goodman. Cassius Au Belladona, the Man Who Killed Fear."},
-			{"text":"If a man cannot learn from his mistakes, then what hope is there but to kill us all at first sin?"},
+			{"text":""},
+			{"text":"Do you expect me to put my tail between my legs, goodman?"},
+			{"text":"You're being ridiculous."},
 			{"text":"Are we all going to die, goodman?"},
 			{"text":"Well, they pissed on me and lived, Name one other person who’s done that."},
 		],
@@ -50,7 +50,7 @@
 
 		"pursuing":[
 			{"text":"Once the first breaks, the rest will feel like they have permission to follow."},
-			{"text":"What? Did somebody compliment me?” he asks. “It’s the jawline. Isn’t it selfless, really. I take the pressure off everyone else. They don’t have to worry about being the most handsome in the room. They can just be. Ah. Heavy is the chin that sets the bar."},
+			{"text":"Hear me now, you wretched worm. We are devils to one another til one rots in hell."},
 			{"text":"If you don’t have the stomach to win, there's plenty of people who do, and will."},
 			{"text":"You know who I am."},
 			{"text":"Are the services of a hero required?"}
@@ -66,13 +66,13 @@
 
 		"hull_90":[
 			{"text":"That motherf*cker's gonna burn."},
-			{"text":"The ultimate honor between peers—a conversation in the language we both have mastered. Violence."},
+			{"text":"This is a blood fued."},
 			{"text":"I am Iron. I am Death. I am Gold."},
 			{"text":"The roaches are all in one bucket, and the lads are in the mood to stomp!"}
 		],
 
 		"hull_50":[
-			{"text":"Aren’t you afraid you’re going to break everything and not be able to put it back together?"},
+			{"text":"You’re going to break everything and I'm not going to be able to put it back together!"},
 			{"text":"The purpose of war is to kill your enemies!"},
 			{"text":"All have come expecting to see me fail. They just might."}
 		],
@@ -80,7 +80,6 @@
 		"hull_30":[
 			{"text":"That was not flying. That was just ‘not crashing.’"},
 			{"text":"Death begets death begets death …"},
-			{"text":"The vessel has been severely damaged! Requesting allowance to retreat!"},
 			{"text":"Remember, you live for the fallen, for at your word they ran to the grave. Make not their sacrifice be ever in vain.."},
 			{"text":"My heart is often iron, but it melts for the broken.."},
 			{"text":"I know what it is to be small. To be…stepped on. There’s dignity in holding up your hands against the boot. But it crushes all the same."}
@@ -105,7 +104,7 @@
 			{"text":"Out of darkness, light."},
 			{"text":"I am Cassius au Belladona, son of Tiberius, son of Julia, Slayer of Beasts and Men, and my honor remains."},
 			{"text":"I forgot how crazy you are."},
-			{"text":"I am bored, Darrow. I am terminally bored. I yearn for the clash. I yearn for martial sensation."}
+			{"text":"I am bored. I am terminally bored. I yearn for the clash. I yearn for martial sensation."}
 		],
 		"victory_boss":[
 			{"text":"Bloodydamn.."}, 
