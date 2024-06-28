@@ -36,7 +36,6 @@ public class PhaseTransfer extends BaseShipSystemScript {
                 ship.getMutableStats().getAcceleration().modifyMult("CloakEffect", 10f);
                 ship.getMutableStats().getMaxTurnRate().modifyMult("CloakEffect", 4f);
                 ship.getMutableStats().getTurnAcceleration().modifyMult("CloakEffect", 10f);
-                ship.giveCommand(ShipCommand.HOLD_FIRE, null, 0);
             }
         } else if(state == State.OUT) {
             if(phaseShadow != null) {
@@ -47,12 +46,10 @@ public class PhaseTransfer extends BaseShipSystemScript {
                 }
                 ship.setCollisionClass(CollisionClass.SHIP);
                 ship.setAlphaMult(1f);
-                ship.setApplyExtraAlphaToEngines(true);
                 ship.getMutableStats().getMaxSpeed().modifyMult("CloakEffect", 1f);
                 ship.getMutableStats().getAcceleration().modifyMult("CloakEffect", 1f);
                 ship.getMutableStats().getMaxTurnRate().modifyMult("CloakEffect", 1f);
                 ship.getMutableStats().getTurnAcceleration().modifyMult("CloakEffect", 1f);
-                ship.giveCommand(ShipCommand.FIRE, null, 0);
                 removePhantom(Global.getCombatEngine(), ship);
             }
         }
