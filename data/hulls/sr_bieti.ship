@@ -15,6 +15,9 @@
     "missleracks",
     "sr_belladonagunners"
   ],
+  "builtInWeapons": {
+    "WS0020": "sr_bietipod"
+  },
   "weaponSlots": [
     {
       "id": "WS0001",
@@ -107,28 +110,19 @@
       "locations": [50, -17]
     },
     {
-      "id": "WS0011",
-      "size": "MEDIUM",
-      "type": "BALLISTIC",
-      "mount": "TURRET",
-      "arc": 235,
-      "angle": 0,
-      "locations": [93, -0]
-    },
-    {
       "id": "WS0012",
-      "size": "MEDIUM",
+      "size": "SMALL",
       "type": "MISSILE",
-      "mount": "TURRET",
+      "mount": "HARDPOINT",
       "arc": 3,
       "angle": 90,
-      "locations": [-23, 36]
+      "locations": [-20, 36]
     },
     {
       "id": "WS0013",
-      "size": "MEDIUM",
+      "size": "SMALL",
       "type": "MISSILE",
-      "mount": "TURRET",
+      "mount": "HARDPOINT",
       "arc": 3,
       "angle": -90,
       "locations": [-23, -36]
@@ -137,7 +131,7 @@
       "id": "WS0014",
       "size": "MEDIUM",
       "type": "MISSILE",
-      "mount": "TURRET",
+      "mount": "HARDPOINT",
       "arc": 3,
       "angle": -90,
       "locations": [3, -36]
@@ -146,28 +140,28 @@
       "id": "WS0015",
       "size": "MEDIUM",
       "type": "MISSILE",
-      "mount": "TURRET",
+      "mount": "HARDPOINT",
       "arc": 3,
       "angle": 90,
       "locations": [3, 36]
     },
     {
       "id": "WS0016",
-      "size": "MEDIUM",
+      "size": "SMALL",
       "type": "MISSILE",
-      "mount": "TURRET",
+      "mount": "HARDPOINT",
       "arc": 3,
       "angle": -90,
       "locations": [29, -36]
     },
     {
       "id": "WS0017",
-      "size": "MEDIUM",
+      "size": "SMALL",
       "type": "MISSILE",
-      "mount": "TURRET",
+      "mount": "HARDPOINT",
       "arc": 3,
       "angle": 90,
-      "locations": [29, 36]
+      "locations": [26, 36]
     },
     {
       "id": "WS0018",
@@ -384,6 +378,24 @@
       "arc": 1,
       "angle": -45,
       "locations": [117.5, -37.5]
+    },
+    {
+      "id": "WS0020",
+      "size": "MEDIUM",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [118, -0]
+    },
+    {
+      "id": "WS0011",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 105,
+      "angle": 0,
+      "locations": [92, -0]
     }
   ],
   "engineSlots": [

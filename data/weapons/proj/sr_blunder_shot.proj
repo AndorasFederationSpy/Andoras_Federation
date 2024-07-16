@@ -1,0 +1,22 @@
+{
+	"id":"sr_blunder_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+        "onFireEffect":"andorasfederation.weapons.Sr_OafShotgunSpecialBehavior",
+	"length":11.0,
+	"hitGlowRadius":5,
+	"width":5.0,
+	"fadeTime":0.7,
+	"fringeColor":[31,255,157,200],
+	#"coreColor":[255,225,175,225],
+	"coreColor":[135,255,178,250],
+	"glowColor":[31,255,119,175],
+	"glowRadius":10,
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"passThroughMissiles":false,
+	"bulletSprite":"graphics/missiles/sr_shaped_charge.png"
+	#"bulletSprite":"graphics/missiles/shell_round_lrg.png"
+}
