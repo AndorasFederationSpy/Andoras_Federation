@@ -4,7 +4,7 @@
   "hullSize": "CAPITAL_SHIP",
   "spriteName": "graphics/ships/sr_jabberwock.png",
   "style": "HOUSE_BELLONA",
-  "height": 402,
+  "height": 413,
   "width": 180,
   "center": [90, 191],
   "collisionRadius": 226,
@@ -17,27 +17,27 @@
       "size": "LARGE",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 290,
+      "arc": 285,
       "angle": 180,
-      "locations": [-154, -0]
+      "locations": [-153, -0]
     },
     {
       "id": "WS0002",
       "size": "LARGE",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 210,
-      "angle": 105,
-      "locations": [-63, 60]
+      "arc": 150,
+      "angle": 90,
+      "locations": [-62, 60]
     },
     {
       "id": "WS0003",
       "size": "LARGE",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 220,
-      "angle": -105,
-      "locations": [-63, -59.5]
+      "arc": 150,
+      "angle": -90,
+      "locations": [-62, -60]
     },
     {
       "id": "WS0004",
@@ -46,7 +46,7 @@
       "mount": "TURRET",
       "arc": 150,
       "angle": 75,
-      "locations": [28, 51.5]
+      "locations": [29, 52]
     },
     {
       "id": "WS0005",
@@ -55,14 +55,14 @@
       "mount": "TURRET",
       "arc": 150,
       "angle": -75,
-      "locations": [28, -51.5]
+      "locations": [29, -52]
     },
     {
       "id": "WS0007",
       "size": "LARGE",
       "type": "MISSILE",
       "mount": "HARDPOINT",
-      "arc": 30,
+      "arc": 5,
       "angle": 0,
       "locations": [146.5, 30]
     },
@@ -73,50 +73,50 @@
       "mount": "TURRET",
       "arc": 150,
       "angle": 70,
-      "locations": [59, 43]
+      "locations": [60, 43]
     },
     {
       "id": "WS0011",
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 190,
+      "arc": 75,
       "angle": -90,
-      "locations": [-83, -81]
+      "locations": [-82, -81]
     },
     {
       "id": "WS0012",
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 190,
+      "arc": 75,
       "angle": -100,
-      "locations": [-107, -81]
+      "locations": [-106, -81]
     },
     {
       "id": "WS0013",
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 210,
+      "arc": 75,
       "angle": -115,
-      "locations": [-132, -77]
+      "locations": [-131, -77]
     },
     {
       "id": "WS0014",
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 210,
+      "arc": 75,
       "angle": -130,
-      "locations": [-151, -64]
+      "locations": [-150, -64]
     },
     {
       "id": "WS0015",
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 210,
+      "arc": 75,
       "angle": -135,
       "locations": [-163, -44]
     },
@@ -125,45 +125,45 @@
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 190,
+      "arc": 75,
       "angle": 90,
-      "locations": [-83, 81]
+      "locations": [-82, 81]
     },
     {
       "id": "WS0017",
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 190,
+      "arc": 75,
       "angle": 100,
-      "locations": [-107, 81]
+      "locations": [-106, 81]
     },
     {
       "id": "WS0018",
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 210,
+      "arc": 75,
       "angle": 110,
-      "locations": [-132, 77]
+      "locations": [-131, 77]
     },
     {
       "id": "WS0019",
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 210,
+      "arc": 75,
       "angle": 130,
-      "locations": [-151, 64]
+      "locations": [-150, 64]
     },
     {
       "id": "WS0020",
       "size": "SMALL",
       "type": "BALLISTIC",
       "mount": "TURRET",
-      "arc": 210,
+      "arc": 75,
       "angle": 135,
-      "locations": [-163, 44]
+      "locations": [-162.5, 44]
     },
     {
       "id": "WS0006",
@@ -172,7 +172,7 @@
       "mount": "TURRET",
       "arc": 190,
       "angle": -90,
-      "locations": [-32, -74]
+      "locations": [-38, -65]
     },
     {
       "id": "WS0009",
