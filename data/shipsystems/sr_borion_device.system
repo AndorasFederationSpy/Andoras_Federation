@@ -1,0 +1,25 @@
+{
+	"id":"sr_borion_device",
+	"type":"STAT_MOD",
+	"aiType":"MANEUVERING_JETS",
+
+	"statsScript":"andorasfederation.shipsystems.Sr_BorionDevice",
+
+	"runScriptWhileIdle":true, # unapply() never gets called
+
+	#"fadeActivationSoundOnChargedown":true,
+
+	"engineGlowLengthMult":0.5,
+	"engineGlowWidthMult":0.5,
+	"engineGlowGlowMult":1,
+        "flameoutOnImpactChance":0.8,
+	"useSound":"system_plasma_jets",
+	"loopSound":"system_plasma_jets_loop",
+	"outOfUsesSound":"engine_disabled",
+
+	"aiHints":{
+		"activeSpeedIncrease":0,
+		"burstMovementPotential":400,
+		"averageSpeedIncrease":100,
+	}
+}
