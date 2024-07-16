@@ -1,0 +1,26 @@
+{
+  "variantId": "sr_mastoph_variant_wing",
+  "hullId": "sr_mastoph",
+  "displayName": "Gargoyle Frame",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "sr_blunderbuss",
+        "WS0004": "sr_proterva",
+        "WS0005": "sr_mastoph_head",
+        "WS0006": "sr_laurel",
+        "WS0007": "sr_laurel"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
